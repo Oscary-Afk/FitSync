@@ -10,8 +10,8 @@ def get_all_users():
     
         response = Config.supabase.table('users').select('*').execute()
         
-        # 👇 Convertir a JSON y retornar
-        return jsonify({
+       
+       return jsonify({
             "success": True,
             "data": response.data,
             "count": len(response.data)
