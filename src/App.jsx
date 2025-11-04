@@ -32,11 +32,7 @@ function App() {
     
     <About />
     
-      <main>
-        <About />
-      </main>
-
-      <Footer />
+    <Footer />
     </>
   )
 }

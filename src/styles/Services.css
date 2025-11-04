@@ -1,14 +1,22 @@
 .services-section-container {
-  background-color: #ffffff !important; 
+  background-color: var(--principal); 
   text-align: center;
   padding: 80px 20px;
+}
+
+.services-header{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 2rem 0;
 }
 
 /* 2. Encabezado */
 
 .services-subtitle {
-  color: #ff5722 !important; /* Mantiene el naranja como color de acento */
-  font-size: 14px;
+  color: var(--color-especial); /* Mantiene el naranja como color de acento */
+  font-size: 1rem;
   font-weight: 500;
   margin-bottom: 5px;
   letter-spacing: 1px;
@@ -16,7 +24,7 @@
 
 .services-main-title {
   /* FUERZA el color oscuro para que sea visible sobre el fondo blanco */
-  color: #333333 !important; 
+  color: var(--text-principal); 
   font-size: 36px;
   font-weight: 800;
   text-transform: uppercase;
@@ -25,8 +33,9 @@
 
 /* 3. Grid de Tarjetas: Aseguramos que no tenga un fondo oscuro por sí mismo */
 .services-cards-grid {
-  background-color: transparent !important; /* Fondo transparente o blanco si fuera necesario */
+  background-color: transparent; /* Fondo transparente o blanco si fuera necesario */
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
   max-width: 1200px;
@@ -36,21 +45,22 @@
 /* 4. Tarjeta Individual */
 
 .service-card {
-  background-color: transparent !important; /* Fondo de tarjeta transparente o blanco */
+  background-color: transparent; /* Fondo de tarjeta transparente o blanco */
   flex: 1;
+  min-width: 180px;
   max-width: 280px; 
   padding: 20px 10px;
 }
 
 .service-icon {
-  color: #ff5722 !important; /* FUERZA el naranja para los íconos */
+  color: var(--color-especial); /* FUERZA el naranja para los íconos */
   font-size: 50px;
   margin-bottom: 20px;
 }
 
 .service-title {
   /* FUERZA el color oscuro para los títulos */
-  color: #333333 !important; 
+  color: var(--text-principal); 
   font-size: 18px;
   font-weight: 700;
   margin-bottom: 10px;
@@ -58,7 +68,7 @@
 
 .service-description {
   /* FUERZA el color gris oscuro para las descripciones */
-  color: #666666 !important; 
+  color: var(--color-gray); 
   font-size: 15px;
   line-height: 1.6;
 }

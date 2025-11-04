@@ -38,6 +38,7 @@
 }
 .payment-features-info{
     display: flex;
+    align-items: center;
     gap: 1rem;
 }
 .payment-features .payment-features-info:not(:last-child) {
@@ -48,6 +49,10 @@
 .payment-features-info .icon-check{
     color: var(--color-especial);
 }
+.payment-features-info p{
+    margin: 0;
+}
+
 .payment-button{
     display: flex;
     justify-content: center;
