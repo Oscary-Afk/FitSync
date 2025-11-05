@@ -1,15 +1,14 @@
-from flask import Flask, jsonify
-from supabase import create_client, Client
-from dotenv import load_dotenv
-import os
-
-load_dotenv() 
+from flask import Flask, jsonify, request, Blueprint
+from flask_cors import CORS
+from routes.Bp_modify import Bp_modify
+from keys import supabase
 
 app = Flask(__name__)
 
-SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_KEY = os.environ.get("SUPABASE_KEY") 
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+CORS(app)
+
+app.register_blueprint(Bp_modify, url_prefix='/api/user')
+
 
 @app.route('/api/user/<int:user_id>', methods=['GET'])
 def get_single_user(user_id):
@@ -26,6 +25,8 @@ def get_single_user(user_id):
     except Exception as e:
         print(f"ERROR DE SUPABASE: {e}")
         return jsonify({"message": "Internal Server Error"}), 500
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
