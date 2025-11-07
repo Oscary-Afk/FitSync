@@ -3,12 +3,20 @@ from flask_cors import CORS
 from routes.Bp_modify import Bp_modify
 from keys import supabase
 from dotenv import load_dotenv
+from supabase import create_client, Client
 import os
 
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
+
+SUPABASE_URL = os.getenv('SUPABASE_URL')
+SUPABASE_KEY = os.getenv('SUPABASE_KEY')
+if not SUPABASE_URL or not SUPABASE_KEY:
+    raise RuntimeError('Set url and key environment variables')
+
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 app.register_blueprint(Bp_modify, url_prefix='/api/user')
 
