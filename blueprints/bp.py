@@ -1,3 +1,5 @@
+
+"""
 from flask import Flask
 from flask_cors import CORS
 from supabase import create_client, Client
@@ -26,3 +28,5 @@ def create_app():
     app.register_blueprint(users_bp, url_prefix='/api/users')
 
     return app
+
+"""""

@@ -1,3 +1,6 @@
+
+"""
+
 from flask import Blueprint, jsonify
 from app.config import Config
 
@@ -16,4 +19,4 @@ def get_all_users():
             "data": response.data,
             "count": len(response.data)
         })
-        
+"""""
