@@ -6,6 +6,10 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+src/__pycache__/app.cpython-312.pyc
+src/__pycache__/keys.cpython-312.pyc
+
+
 
 node_modules
 dist
@@ -23,3 +27,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Archivos de entorno y credenciales
+.env
+
+# Directorio del entorno virtual
+venv/
