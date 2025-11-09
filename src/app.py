@@ -4,6 +4,7 @@ from routes.Bp_modify import Bp_modify
 from routes.sign_up import sign_up
 from routes.delete_user import delete_user
 from routes.get_users import get_users
+from routes.login import login
 from keys import supabase
 from dotenv import load_dotenv
 
@@ -17,6 +18,7 @@ app.register_blueprint(Bp_modify, url_prefix='/api/user')
 app.register_blueprint(sign_up, url_prefix='/signup')
 app.register_blueprint(delete_user, url_prefix='/user/delete')
 app.register_blueprint(get_users, url_prefix= '/user')
+app.register_blueprint(login, url_prefix='/login')
 
 @app.route('/api/users', methods=['GET'])
 def get_all_users():
@@ -32,6 +34,7 @@ def get_all_users():
     except Exception as e:
         print(f"ERROR DE SUPABASE: {e}")
         return jsonify({"message": "Internal Server Error"}), 500
+
 
 
 if __name__ == '__main__':

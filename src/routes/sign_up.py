@@ -10,7 +10,7 @@ sign_up = Blueprint('sign_up', __name__)
 
 load_dotenv()
 
-@sign_up.route('/signup', methods=['POST'])
+@sign_up.route('/', methods=['POST'])
 def signnup():
     try:
         data = request.get_json()
