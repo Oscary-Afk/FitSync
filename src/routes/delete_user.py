@@ -4,7 +4,7 @@ from keys import supabase
 delete_user = Blueprint('delete_user', __name__)
 
 
-@delete_user.route('/user/delete/<int:user_id>', methods=['DELETE'])
+@delete_user.route('/<int:user_id>', methods=['DELETE'])
 def deleteUser(user_id):
     try:
         response = supabase.table('User').delete().eq('id_user', user_id).execute()

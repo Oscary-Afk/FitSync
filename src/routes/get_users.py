@@ -3,7 +3,7 @@ from keys import supabase
 
 get_users = Blueprint('get_users', __name__)
 
-@get_users.route('/user/<int:user_id>', methods=['GET'])
+@get_users.route('/<int:user_id>', methods=['GET'])
 def get_single_user(user_id):
     try:
         response = supabase.table('User').select('*').eq('id_user', user_id).execute()
