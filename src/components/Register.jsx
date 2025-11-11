@@ -3,47 +3,26 @@ import { supabase } from '../lib/supabaseClient'
 import '../styles/Register.css'
 
 export default function Register() {
-  const [form, setForm] = useState({
-    nombre: '',
-    apellido: '',
-    email: '',
-    telefono: '',
-    password: ''
-  })
-  const [loading, setLoading] = useState(false)
-  const [message, setMessage] = useState(null)
+  const [form, setForm] = useState({ name:'', last_name:'', email:'', number:'', password:'' })
+  const [msg, setMsg] = useState(null)
 
-  const handleChange = (e) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
-  }
+  const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setMessage(null)
-    setLoading(true)
-
+    setMsg(null)
     try {
-      
-      const { error, data } = await supabase.auth.signUp({
-        email: form.email,
-        password: form.password,
-        options: {
-          data: {
-            nombre: form.nombre,
-            apellido: form.apellido,
-            telefono: form.telefono
-          }
-        }
+      const res = await fetch('/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
       })
-
-      if (error) throw error
-
-      setMessage('Revisa tu email para verificar la cuenta.')
-      setForm({ nombre: '', apellido: '', email: '', telefono: '', password: '' })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.message || 'Error')
+      setMsg('Registro exitoso')
+      setForm({ name:'', last_name:'', email:'', number:'', password:'' })
     } catch (err) {
-      setMessage(err.message || 'Error al registrarse')
-    } finally {
-      setLoading(false)
+      setMsg(err.message)
     }
   }
 
@@ -51,14 +30,13 @@ export default function Register() {
     <div className="register-container">
       <h1>Registro</h1>
       <form onSubmit={handleSubmit} className="register">
-        <input name="nombre" value={form.nombre} onChange={handleChange} type="text" placeholder="Nombre" />
-        <input name="apellido" value={form.apellido} onChange={handleChange} type="text" placeholder="Apellido" />
-        <input name="email" value={form.email} onChange={handleChange} type="email" placeholder="Email" />
-        <input name="telefono" value={form.telefono} onChange={handleChange} type="number" placeholder="Telefono" />
-        <input name="password" value={form.password} onChange={handleChange} type="password" placeholder="Password" />
-        <div><a href="/login">Tienes ya una cuenta?</a></div>
-        <button type="submit" disabled={loading}>{loading ? 'Registrando...' : 'Registrarse'}</button>
-        {message && <p className="form-message">{message}</p>}
+        <input name="name" value={form.name} onChange={handleChange} placeholder="Nombre" />
+        <input name="last_name" value={form.last_name} onChange={handleChange} placeholder="Apellido" />
+        <input name="email" value={form.email} onChange={handleChange} placeholder="Email" />
+        <input name="number" value={form.number} onChange={handleChange} placeholder="Telefono" type="tel" />
+        <input name="password" value={form.password} onChange={handleChange} placeholder="Password" type="password" />
+        <button type="submit">Registrarse</button>
+        {msg && <p>{msg}</p>}
       </form>
     </div>
   )

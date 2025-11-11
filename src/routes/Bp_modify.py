@@ -3,8 +3,7 @@ from keys import supabase
 
 Bp_modify = Blueprint('Bp_modify', __name__)
 
-
-@Bp_modify.route('/user/update/<int:user_id>', methods=['PUT'])
+@Bp_modify.route('/update/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
     try:
         data = request.get_json()  
