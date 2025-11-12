@@ -13,4 +13,8 @@ if not SUPABASE_URL or not SUPABASE_KEY:
     raise ValueError("❌ ERROR: SUPABASE_URL or SUPABASE_KEY not found. Check your .env file.")
 
 # Crear cliente global
+<<<<<<< HEAD
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+=======
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+>>>>>>> 468557ee318e8625de3b6fc8b8ad6cb859afc8b9

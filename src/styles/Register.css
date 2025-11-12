@@ -1,4 +1,4 @@
-.login-container {
+.register-container {
     text-align: center;
     background-color: var(--principal);
     width: 100%;
@@ -11,7 +11,7 @@
     padding: 3rem 0;
 }
 
-.login {
+.register {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,18 +20,18 @@
     border-radius: 1rem;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     height: 100%;
-    max-height: 20rem;
+    max-height: 35rem;
     width: 100%;
     max-width: 30rem;
     text-align: center;
 }
 
-.login h1 {
+.register h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
 }
 
-.login input {
+.register input {
     padding: 0.5rem;
     margin-bottom: 1rem;
     border: none;
@@ -41,11 +41,16 @@
     font-size: 1.2rem;
 }
 
-.login input:focus {
+.register input:focus {
     border-bottom: 2px solid var(--color-especial);
 }
 
-.login button {
+.register input[type="number"]{
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+
+.register button {
     padding: 1rem;
     background-color: var(--color-especial);
     color: var(--principal);
