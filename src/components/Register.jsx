@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { supabase } from '../lib/supabaseClient'
+// import { supabase } from '../lib/supabaseClient'
 import '../styles/Register.css'
 
 export default function Register() {
