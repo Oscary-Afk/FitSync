@@ -12,13 +12,7 @@ import Login from './components/Login.jsx';
 import Register from './components/Register.jsx';
 
 function App() {
-  const [count, setCount] = useState(0) 
-  // usestate gi
-
-  useEffect(() => {
-    // useEffect es para usar javascript puro directo y código que se ejecuta después del renderizado
-  }, [count])
-
+  
   return (
     <>
 
