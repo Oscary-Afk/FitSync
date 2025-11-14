@@ -1,37 +1,17 @@
-import { useState, useEffect } from 'react'
 import './App.css'
-import Navbar from './components/Navbar';
-import { Home } from './components/Home.jsx';
-import { Services } from './components/Services.jsx';
-import Payment from './components/Payment.jsx';
-import Gallery from './components/Gallery.jsx';
-import About from './components/About'
-import Footer from './components/Footer.jsx';
-
-import Login from './components/Login.jsx';
-import Register from './components/Register.jsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Landing } from './pages/Landing.jsx'
+import { RegisterPage } from './pages/RegisterPage.jsx'
 
 function App() {
-  
   return (
-    <>
-
-   <Navbar/>
-
-    <Home/>
-
-    <Services />
-    
-    <Payment />
-
-    <Gallery />
-    
-    <About />
-
-    <Register />
-    
-    <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
