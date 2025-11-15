@@ -9,6 +9,7 @@ import Footer from '../components/Footer.jsx';
 export function Landing() {
   return (
     <>
+
       <Navbar />
       <Home />
       <Services />
