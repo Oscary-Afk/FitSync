@@ -1,12 +1,11 @@
 import React from 'react'
-import '../styles/About.css' // importar el About.css que está en src/styles
+import '../styles/About.css'
 
 export default function About() {
   return (
     <section className="about-section">
       <div className="about-container">
-        
-        {/* Hero Section */}
+        {/* Hero con imagen de fondo */}
         <div className="about-hero">
           <div className="about-hero-content">
             <h1 className="about-title">Transforma Tu Cuerpo, Transforma Tu Vida</h1>
@@ -14,7 +13,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* Contenido principal */}
+        {/* Contenido principal con imagen */}
         <div className="about-content">
           <div className="about-text">
             <h2>Nuestra Filosofía</h2>
@@ -45,7 +44,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* Servicios */}
+        {/* Servicios - puedes agregar íconos con imágenes si quieres */}
         <div className="services-section">
           <h2 className="services-title">Lo Que Ofrecemos</h2>
           <div className="services-grid">
@@ -55,7 +54,7 @@ export default function About() {
               <p>Programas diseñados específicamente para tus objetivos.</p>
             </div>
 
-            <div className="service-card">
+            <div className="service-card featured">
               <div className="service-icon">🥗</div>
               <h3>Plan Nutricional</h3>
               <p>Guías alimentarias personalizadas que complementan tu entrenamiento.</p>
