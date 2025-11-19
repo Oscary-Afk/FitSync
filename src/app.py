@@ -1,13 +1,18 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+
 from routes.Bp_modify import Bp_modify
 from routes.sign_up import sign_up
 from routes.delete_user import delete_user
 from routes.get_users import get_users
 from routes.login import login
+
 from keys import supabase
 from dotenv import load_dotenv
 import os
+
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
+from datetime import timedelta 
 
 
 load_dotenv()
@@ -15,6 +20,14 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
+app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
+
+jwt = JWTManager(app)
+
+SUPABASE_URL = os.getenv('SUPABASE_URL')
+SUPABASE_KEY = os.getenv('SUPABASE_KEY')
+if not SUPABASE_URL or not SUPABASE_KEY:
+    raise RuntimeError('Set url and key environment variables')
 
 
 app.register_blueprint(Bp_modify, url_prefix='/api/user')
