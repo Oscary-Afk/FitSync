@@ -45,11 +45,10 @@ export default function NavbarLoged() {
 
       <div className="navbar-right">
         <div className="user-box" title={userName}>
-          {/* avatarUrl
+          {avatarUrl
             ? <img className="user-avatar" src={avatarUrl} alt={userName} />
             : <div className="user-avatar user-initials">{initials}</div>
-          */}
-          <img className="user-avatar" src={avatarUrl} alt={userName} />
+          }
           <span className="user-name">{userName}</span>
         </div>
       </div>
