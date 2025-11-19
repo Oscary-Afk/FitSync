@@ -1,43 +1,20 @@
-import { useState, useEffect } from 'react'
 import './App.css'
-import Navbar from './components/Navbar';
-import { Home } from './components/Home.jsx';
-import { Services } from './components/Services.jsx';
-import Payment from './components/Payment.jsx';
-import Gallery from './components/Gallery.jsx';
-import About from './components/About'
-import Footer from './components/Footer.jsx';
-
-import Login from './components/Login.jsx';
-import Register from './components/Register.jsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Landing } from './pages/Landing.jsx'
+import  { Register }  from './pages/Register.jsx'
+import Login from './pages/Login.jsx' 
+import Payment from './pages/Payment.jsx'
 
 function App() {
-  const [count, setCount] = useState(0) 
-  // usestate gi
-
-  useEffect(() => {
-    // useEffect es para usar javascript puro directo y código que se ejecuta después del renderizado
-  }, [count])
-
   return (
-    <>
-
-   <Navbar/>
-
-    <Home/>
-
-    <Services />
-    
-    <Payment />
-
-    <Gallery />
-    
-    <About />
-
-    <Register />
-    
-    <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/sign_up" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/payment" element={<Payment />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

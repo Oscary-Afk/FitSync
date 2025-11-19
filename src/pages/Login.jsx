@@ -1,5 +1,5 @@
 import '../styles/Login.css';
-import React from 'react';
+import { useState } from 'react';
 
 export default function Login({onLogin}) {
     const [email, setEmail] = useState('')
@@ -42,31 +42,31 @@ export default function Login({onLogin}) {
 
     return (
         <div className="login-container">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit} className="login">
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <div>
-          <a href="/sign_up">No tienes cuenta?</a>
-          <a href="/forgot">Olvidaste la contraseña?</a>
+          <h1>Login</h1>
+          <form onSubmit={handleSubmit} className="login">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <div className="login-options">
+              <a href="/sign_up">No tienes cuenta?</a>
+              <a href="">Olvidaste la contraseña?</a>
+            </div>
+            <button type="submit" disabled={loading}>
+              {loading ? 'Ingresando...' : 'Login'}
+            </button>
+            {error && <p className="form-error">{error}</p>}
+          </form>
         </div>
-        <button type="submit" disabled={loading}>
-          {loading ? 'Ingresando...' : 'Login'}
-        </button>
-        {error && <p className="form-error">{error}</p>}
-      </form>
-    </div>
     );
 }

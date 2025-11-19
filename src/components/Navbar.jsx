@@ -17,14 +17,13 @@ export default function Navbar() {
       </div>
       
       <div className="navbar-logo-name">
-        {/* Aquí iría el logo si lo incluyeras */}
         <img src="logo_fitsync.png" alt="logo_fitsync" className="logo-img" />
         <span className="logo-text">FITCLUB</span>
       </div>
 
       <div className="navbar-right">
-        <a href="#blog" className="nav-link">BLOG</a>
-        <a href="#contact" className="nav-link">CONTACT</a>
+        <a href="/login" className="nav-link">Sign in</a>
+        <a href="/sign_up" className="nav-link">Sign up</a>
         <button className="join-button">JOIN NOW</button>
       </div>
     </nav>
