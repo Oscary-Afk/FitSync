@@ -33,3 +33,7 @@ dist-ssr
 
 # Directorio del entorno virtual
 venv/
+
+# Excluir carpetas de caché de Python
+__pycache__/
+*.pyc
