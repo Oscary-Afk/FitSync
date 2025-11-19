@@ -5,7 +5,7 @@ from keys import supabase
 login = Blueprint('login', __name__)
 
 
-@login.route('/login', methods=['POST'])
+@login.route('/', methods=['POST'])
 def Login():
     data = request.get_json()
 
