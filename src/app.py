@@ -1,20 +1,29 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+
 from routes.Bp_modify import Bp_modify
 from routes.sign_up import sign_up
 from routes.delete_user import delete_user
 from routes.get_users import get_users
 from routes.login import login
+
 from keys import supabase
 from dotenv import load_dotenv
 from supabase import create_client, Client
 import os
+
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
+from datetime import timedelta 
 
 
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
+
+app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
+
+jwt = JWTManager(app)
 
 SUPABASE_URL = os.getenv('SUPABASE_URL')
 SUPABASE_KEY = os.getenv('SUPABASE_KEY')
