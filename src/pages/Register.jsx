@@ -1,8 +1,17 @@
 import React, { useState } from 'react'
-// import { supabase } from '../lib/supabaseClient'
+import { useEffect } from 'react'
 import '../styles/Register.css'
 
-export default function Register() {
+export function Register() {
+
+  useEffect(() => {
+    fetch('/api/users') // ruta enpoint register, same example for others components with flask
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err => console.error(err))
+
+  }, [])
+
   const [form, setForm] = useState({ name:'', last_name:'', email:'', number:'', password:'' })
   const [msg, setMsg] = useState(null)
 
@@ -12,10 +21,16 @@ export default function Register() {
     e.preventDefault()
     setMsg(null)
     try {
+      const payload = {
+        ...form,
+        password_encrypted: form.password
+      };
+      delete payload.password;
+
       const res = await fetch('/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
+        body: JSON.stringify(payload)
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.message || 'Error')
@@ -35,6 +50,9 @@ export default function Register() {
         <input name="email" value={form.email} onChange={handleChange} placeholder="Email" />
         <input name="number" value={form.number} onChange={handleChange} placeholder="Telefono" type="tel" />
         <input name="password" value={form.password} onChange={handleChange} placeholder="Password" type="password" />
+        <div>
+          <a href="/login">¿Ya tienes cuenta?</a>
+        </div>
         <button type="submit">Registrarse</button>
         {msg && <p>{msg}</p>}
       </form>

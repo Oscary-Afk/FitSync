@@ -9,7 +9,6 @@ from routes.login import login
 
 from keys import supabase
 from dotenv import load_dotenv
-from supabase import create_client, Client
 import os
 
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
@@ -30,7 +29,6 @@ SUPABASE_KEY = os.getenv('SUPABASE_KEY')
 if not SUPABASE_URL or not SUPABASE_KEY:
     raise RuntimeError('Set url and key environment variables')
 
-supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 app.register_blueprint(Bp_modify, url_prefix='/api/user')
 app.register_blueprint(sign_up, url_prefix='/signup')
