@@ -58,9 +58,9 @@ export default function Login({onLogin}) {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <div>
+            <div className="login-options">
               <a href="/sign_up">No tienes cuenta?</a>
-              <a href="/forgot">Olvidaste la contraseña?</a>
+              <a href="">Olvidaste la contraseña?</a>
             </div>
             <button type="submit" disabled={loading}>
               {loading ? 'Ingresando...' : 'Login'}
