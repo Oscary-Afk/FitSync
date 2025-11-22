@@ -6,6 +6,26 @@ import { MemberGoals } from '../components/MemberGoals.jsx';
 import Payment from '../components/Payment.jsx';
 
 export function IndexPage() {
+
+  /*const [active, setActive] = useState('welcome') // 'welcome' | 'class' | 'goals'
+
+  const content = active === 'welcome'
+    ? <MemberWelcome />
+    : active === 'class'
+      ? <ClassSchedule />
+      : <MemberGoals />
+
+  return (
+    <>
+      <NavbarLoged onSelect={setActive} />
+      <div className="main-content">
+        {content}
+      </div>
+      <Footer />
+    </>
+  );
+*/
+
   return (
     <>
       <NavbarLoged />
