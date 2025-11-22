@@ -54,7 +54,7 @@ export default function About() {
               <p>Programas diseñados específicamente para tus objetivos.</p>
             </div>
 
-            <div className="service-card featured">
+            <div className="service-card">
               <div className="service-icon">🥗</div>
               <h3>Plan Nutricional</h3>
               <p>Guías alimentarias personalizadas que complementan tu entrenamiento.</p>

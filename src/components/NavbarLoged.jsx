@@ -3,7 +3,7 @@ import '../styles/NavbarLoged.css'
 
 export default function NavbarLoged() {
   const [isMenuOpen, setIsMenuOpen] = useState(true)
-
+  const [isMenuOpen2, setIsMenuOpen2] = useState(false)
   const [userName, setUserName] = useState(null)
   /*const [avatarUrl, setAvatarUrl] = useState(null)*/
 
@@ -26,6 +26,26 @@ export default function NavbarLoged() {
   const avatarUrl = '/vite.svg'
   const initials = userName ? userName.split(' ').map(s => s[0]).slice(0,2).join('').toUpperCase() : ''
 
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem('auth_token')
+      await fetch('/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        }
+      })
+    } catch (e) {
+      console.error('Logout error', e)
+    } finally {
+      // limpiar estado local y redirigir (cliente)
+      localStorage.removeItem('auth_token')
+      localStorage.removeItem('auth_user')
+      window.location.href = '/login' // o '/' según tu ruta
+    }
+  }
+
   return (
     <nav className="navbar-container">
       <div className='navbar-menu'>
@@ -43,13 +63,23 @@ export default function NavbarLoged() {
         <span className="logo-text">FITCLUB</span>
       </div>
 
-      <div className="navbar-right">
-        <div className="user-box" title={userName}>
-          {avatarUrl
-            ? <img className="user-avatar" src={avatarUrl} alt={userName} />
-            : <div className="user-avatar user-initials">{initials}</div>
-          }
-          <span className="user-name">{userName}</span>
+      <div className="navbar-right menu-profile-container">
+        <button className="profile-menu" onClick={() => setIsMenuOpen2(!isMenuOpen2)}>
+          <div className="user-box" title={userName}>
+            {avatarUrl
+              ? <img className="user-avatar" src={avatarUrl} alt={userName} />
+              : <div className="user-avatar user-initials">{initials}</div>
+            }
+            <span className="user-name">{userName}</span>
+          </div>
+        </button>
+        <div className="profile-menu-content" style={{display: isMenuOpen2 ? 'flex' : 'none'}}>
+            <a className="profile-menu-item" href='/profile'>
+              Editar perfil
+            </a>
+            <button className="profile-menu-item" onClick={handleLogout}>
+              Cerrar sesión
+            </button>
         </div>
       </div>
     </nav>
