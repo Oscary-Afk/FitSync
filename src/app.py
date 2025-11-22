@@ -36,7 +36,7 @@ if not SUPABASE_URL or not SUPABASE_KEY:
 app.register_blueprint(Bp_modify, url_prefix='/api/user')
 app.register_blueprint(sign_up, url_prefix='/signup')
 app.register_blueprint(delete_user, url_prefix='/user/delete')
-app.register_blueprint(get_users, url_prefix= '/user')
+app.register_blueprint(get_users, url_prefix='/user')
 app.register_blueprint(login, url_prefix='/login')
 app.register_blueprint(logout_bp, url_prefix='/logout')
 

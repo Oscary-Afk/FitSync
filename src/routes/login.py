@@ -4,12 +4,14 @@ from keys import supabase
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, create_access_token
 
 from werkzeug.security import check_password_hash
+from dotenv import load_dotenv
 
 login = Blueprint('login', __name__)
 
+load_dotenv()
 
 @login.route('/', methods=['POST'])
-def login():
+def Login():
     try:
         data = request.get_json() or {}
 

@@ -5,6 +5,13 @@ import '../styles/Register.css'
 
 export function Register() {
   const navigate = useNavigate()
+  useEffect(() => {
+   /* fetch('/sign_up') // ruta enpoint register, same example for others components with flask
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err => console.error(err))
+*/
+  }, [])
 
   const [form, setForm] = useState({ name:'', last_name:'', email:'', number:'', password:'' })
   const [msg, setMsg] = useState(null)
