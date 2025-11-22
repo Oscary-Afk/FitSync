@@ -4,6 +4,7 @@ import { Landing } from './pages/Landing.jsx'
 import { Register }  from './pages/Register.jsx'
 import { Login } from './pages/Login.jsx'
 import { IndexPage } from './pages/IndexPage.jsx'
+import { Profile } from './pages/Profile.jsx'
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/sign_up" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<IndexPage />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   )

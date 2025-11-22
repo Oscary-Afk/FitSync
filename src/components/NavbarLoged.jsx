@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import '../styles/NavbarLoged.css'
 
 export default function NavbarLoged() {
   const [isMenuOpen, setIsMenuOpen] = useState(true)
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   const [userName, setUserName] = useState(null)
   /*const [avatarUrl, setAvatarUrl] = useState(null)*/
@@ -26,6 +28,8 @@ export default function NavbarLoged() {
   const avatarUrl = '/vite.svg'
   const initials = userName ? userName.split(' ').map(s => s[0]).slice(0,2).join('').toUpperCase() : ''
 
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen)
+
   return (
     <nav className="navbar-container">
       <div className='navbar-menu'>
@@ -44,13 +48,24 @@ export default function NavbarLoged() {
       </div>
 
       <div className="navbar-right">
-        <div className="user-box" title={userName}>
+        <div className="user-box" title={userName} onClick={toggleDropdown}>
           {avatarUrl
             ? <img className="user-avatar" src={avatarUrl} alt={userName} />
             : <div className="user-avatar user-initials">{initials}</div>
           }
           <span className="user-name">{userName}</span>
         </div>
+        {isDropdownOpen && (
+          <div className="dropdown-menu">
+            <div className="user-info">
+              <p>Nombre: {userName}</p>
+              <p>Email: user@example.com</p>
+            </div>
+            <Link to="/profile" className="dropdown-item">Perfil</Link>
+            <button className="dropdown-item">Actualizar datos</button>
+            <button className="dropdown-item">Eliminar usuario</button>
+          </div>
+        )}
       </div>
     </nav>
   )
