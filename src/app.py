@@ -1,21 +1,24 @@
+import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from dotenv import load_dotenv
+load_dotenv()
 
 from routes.Bp_modify import Bp_modify
 from routes.sign_up import sign_up
 from routes.delete_user import delete_user
 from routes.get_users import get_users
 from routes.login import login
+from routes.logout import logout_bp
+
 
 from keys import supabase
-from dotenv import load_dotenv
-import os
 
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from datetime import timedelta 
 
 
-load_dotenv()
+
 
 app = Flask(__name__)
 CORS(app)
@@ -33,8 +36,9 @@ if not SUPABASE_URL or not SUPABASE_KEY:
 app.register_blueprint(Bp_modify, url_prefix='/api/user')
 app.register_blueprint(sign_up, url_prefix='/signup')
 app.register_blueprint(delete_user, url_prefix='/user/delete')
-app.register_blueprint(get_users, url_prefix= '/user')
-app.register_blueprint(login, url_prefix='/api/login')
+app.register_blueprint(get_users, url_prefix='/user')
+app.register_blueprint(login, url_prefix='/login')
+app.register_blueprint(logout_bp, url_prefix='/logout')
 
 @app.route('/api/users', methods=['GET'])
 def get_all_users():
