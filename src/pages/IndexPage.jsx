@@ -4,6 +4,7 @@ import { MemberWelcome } from '../components/MemberWelcome.jsx';
 import { ClassSchedule } from '../components/ClassSchedule.jsx';
 import { MemberGoals } from '../components/MemberGoals.jsx';
 import Payment from '../components/Payment.jsx';
+import Gallery from '../components/Gallery.jsx';
 
 export function IndexPage() {
 
@@ -34,6 +35,9 @@ export function IndexPage() {
         <ClassSchedule />
         <MemberGoals />
       </div>
+      <Payment />
+      <Gallery />
+      <Footer />
     </>
   );
 }

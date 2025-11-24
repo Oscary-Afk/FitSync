@@ -5,7 +5,6 @@ import '../styles/NavbarLoged.css';
 
 export default function NavbarLoged() {
   const [isMenuOpen, setIsMenuOpen] = useState(true)
-  const [isMenuOpen2, setIsMenuOpen2] = useState(false)
   /*const [avatarUrl, setAvatarUrl] = useState(null)*/
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userName, setUserName] = useState('Invitado');
@@ -66,19 +65,7 @@ export default function NavbarLoged() {
         <span className="logo-text">FITCLUB</span>
       </div>
 
-      <div className="navbar-right menu-profile-container">
-        <button className="profile-menu" onClick={() => setIsMenuOpen2(!isMenuOpen2)}>
-          <div className="user-box" title={userName}>
-            <span className="user-name">{userName}</span>
-          </div>
-        </button>
-        <div className="profile-menu-content" style={{display: isMenuOpen2 ? 'flex' : 'none'}}>
-            <a className="profile-menu-item" href='/profile'>
-              Editar perfil
-            </a>
-            <button className="profile-menu-item" onClick={handleLogout}>
-              Cerrar sesión
-            </button>
+      <div className="navbar-right menu-profile-container">        
           <div className={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
             <NavLink to="/home" className="nav-link">
               <FaHome />
@@ -93,7 +80,7 @@ export default function NavbarLoged() {
               <span>Pricing</span>
             </NavLink>
           </div>
-        </div>
+        
         <div className="navbar-right">
           <div className="user-box" title={userName} onClick={toggleDropdown}>
             <FaUserCircle className="user-avatar-icon" />
