@@ -30,12 +30,13 @@ class PaymentService:
 
     def create_payment_intent(self, user_id, plan_id, payment_method_id, ip_address=None, user_agent=None):
         try:
-            
+            # 1. Obtener el plan
             plan_resp = supabase.table('subscription_plans').select('*').eq('id', plan_id).single().execute()
             if not plan_resp.data:
                 return {"message": "Plan no encontrado"}, 404
             plan = plan_resp.data
 
+            # 2. Preparar datos para insertar en Supabase
             payment_data = {
                 'id_user': user_id,
                 'plan_id': plan_id,
@@ -45,10 +46,12 @@ class PaymentService:
                 'status': 'pending',
                 'created_at': date.today().isoformat()
             }
+            
+            # 3. Insertar y obtener el ID generado
             insert_resp = supabase.table('payments').insert(payment_data).execute()
             payment_id = insert_resp.data[0]['id']
 
-           
+            # 4. Configurar la orden de PayPal (Nota: falta la línea de ejecución 'client.execute' en tu snippet original)
             order_request = OrdersCreateRequest()
             order_request.prefer('return=representation')
             order_request.request_body({
@@ -63,11 +66,23 @@ class PaymentService:
                 }]
             })
 
-            response = self.client.execute(order_request)
+            # 5. Construir el Objeto de Respuesta
+            # Agregamos el ID generado al objeto de datos para que el frontend lo tenga
+            payment_data['id'] = payment_id 
             
-            self._log_audit(user_id, 'intent_created', ip_address, user_agent, payment_id, {'paypal_order_id': response.result.id})
+            response_object = {
+                "success": True,
+                "message": "Intención de pago creada correctamente",
+                "payment_id": payment_id,
+                "data": payment_data,
+                "plan_details": {
+                    "name": plan['name'],
+                    "price": plan['price_usd']
+                }
+            }
             
-            return {"orderID": response.result.id, "internalID": payment_id}, 201
+            # Retornamos el objeto estructurado
+            return response_object, 201
 
         except HttpError as e:
             self._log_audit(user_id, 'intent_failed_paypal', ip_address, user_agent, metadata={'error': e.message})

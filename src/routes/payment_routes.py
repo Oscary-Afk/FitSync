@@ -61,22 +61,6 @@ def create_order():
     
     print(f"🔐 DEBUG JWT: '{current_user_id}' (type: {type(current_user_id)})")
     
-    # ✅ CONVERTIR A INTEGER - manejar todos los casos
-    try:
-        if isinstance(current_user_id, str):
-            if current_user_id.isdigit():
-                current_user_id = int(current_user_id)
-                print(f"🔐 CONVERTIDO DE STRING A INT: {current_user_id}")
-            else:
-                return jsonify({"error": f"User ID string no es numérico: '{current_user_id}'"}), 400
-        elif isinstance(current_user_id, int):
-            print(f"🔐 YA ES INTEGER: {current_user_id}")
-        else:
-            return jsonify({"error": f"Tipo de User ID no soportado: {type(current_user_id)}"}), 400
-            
-    except Exception as e:
-        return jsonify({"error": f"Error convirtiendo user_id: {str(e)}"}), 400
-    
     data = request.get_json()
     if not data:
         return jsonify({"error": "JSON body required"}), 400
@@ -99,35 +83,7 @@ def create_order():
     )
     return jsonify(result), status
 
-@create_payment_bp.route('/capture', methods=['POST'])
-@jwt_required()
-def capture_order():
-    current_user_id = get_jwt_identity()
-    
-    # ✅ Misma conversión aquí también
-    try:
-        if isinstance(current_user_id, str) and current_user_id.isdigit():
-            current_user_id = int(current_user_id)
-        elif not isinstance(current_user_id, int):
-            return jsonify({"error": f"Invalid user ID type: {type(current_user_id)}"}), 400
-    except Exception as e:
-        return jsonify({"error": f"Error convirtiendo user_id: {str(e)}"}), 400
-    
-    data = request.get_json()
-    user_ip = request.remote_addr
-    user_agent = request.headers.get('User-Agent')
-    
-    order_id = data.get('orderID')
-    if not order_id:
-        return jsonify({"error": "OrderID de PayPal requerido"}), 400
 
-    result, status = payment_service.capture_payment(
-        order_id=order_id,
-        user_id=current_user_id,  # ← Ahora es integer
-        ip_address=user_ip,
-        user_agent=user_agent
-    )
-    return jsonify(result), status
 
 @user_payments_bp.route('/history', methods=['GET'])
 @jwt_required()

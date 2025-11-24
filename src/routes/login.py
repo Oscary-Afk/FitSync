@@ -23,7 +23,7 @@ def Login():
         
         response = supabase.table('User').select('id_user, name, email, password_encrypted').eq('email', email).limit(1).execute()
         # response = supabase.table('User').select('*').eq('email', email).eq('password_encrypted', password).execute()
-        # user = response.data
+        user = response.data
 
         rows = getattr(response, 'data', None) or (response.get('data') if hasattr(response, 'get') else None) or []
         if not rows:
