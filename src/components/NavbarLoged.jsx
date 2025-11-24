@@ -94,10 +94,10 @@ export default function NavbarLoged() {
                 <FaSignOutAlt />
                 <span>Cerrar sesión</span>
               </button>
-              <button className="dropdown-item danger" onClick={handleDeleteAccount}>
+              <Link to="/eliminate-user" className="dropdown-item danger" onClick={() => setIsDropdownOpen(false)}>
                 <FaUserMinus />
                 <span>Eliminar cuenta</span>
-              </button>
+              </Link>
             </div>
           </div>
         )}
@@ -105,4 +105,3 @@ export default function NavbarLoged() {
     </nav>
   );
 }
-   

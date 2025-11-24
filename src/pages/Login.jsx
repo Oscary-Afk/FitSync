@@ -52,7 +52,7 @@ export function Login({onLogin}) {
 
     return (
         <div className="login-container">
-          <h1>Login</h1>
+          <h1 style={{color: 'rgb(31, 29, 29)'}}>Login</h1>
           <form onSubmit={handleSubmit} className="login">
             <input
               type="email"
