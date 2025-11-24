@@ -7,51 +7,53 @@ from werkzeug.security import check_password_hash
 
 login = Blueprint('login', __name__)
 
-
 @login.route('/login', methods=['POST'])
 def Login():
     data = request.get_json()
-
     email = data.get('email')
     password_plaintext = data.get('password_encrypted')
 
     try:
+        # 1. Buscar usuario por email
         response = supabase.table('User').select('id_user, email, password_encrypted').eq('email', email).execute()
-        # response = supabase.table('User').select('*').eq('email', email).eq('password_encrypted', password).execute()
         user = response.data
 
-        # if user:
-        #     return jsonify({"message": "Login successful", "user": user[0]}), 200
-        # else:
-        #     return jsonify({"message": "Invalid email or password"}), 401
         if not user:
-            # Usuario no encontrado
             return jsonify({"message": "Invalid email or password"}), 401
 
         user = user[0]
         stored_hash = user.get('password_encrypted')
 
+        # 2. Verificar contraseña
         if not check_password_hash(stored_hash, password_plaintext):
-            # La contraseña no coincide con el hash
-            return jsonify({"message": "Invalid email or password"}), 40
+            return jsonify({"message": "Invalid email or password"}), 401
         
-        # Usamos el ID del usuario como identidad para el token
-        user_identity = user.get('id_user') 
-        if user_identity is None:
-    # Como respaldo, usa el email si el ID no está disponible
-            user_identity = user.get('email')
-        if user_identity is not None:
-    # Convierte a string si es un número entero
-            user_identity_str = str(user_identity)
-        access_token = create_access_token(identity=user_identity_str)
-
-        # 4. Login exitoso: Devolver el usuario y el token
+        # 3. ✅ OBTENER EL ID_USER 
+        user_id = user.get('id_user')
+        
+        if user_id is None:
+            return jsonify({"message": "Internal error: User ID not found"}), 500
+            
+        # 4. ✅ CONVERTIR A INTEGER Y DEBUG
+        print(f"🔐 ANTES DE CONVERSIÓN: id_user = {user_id}, type = {type(user_id)}")
+        
+        user_id = int(user_id)  # Convertir a integer
+        print(f"✅ DESPUÉS DE CONVERSIÓN: id_user = {user_id}, type = {type(user_id)}")
+        
+        # 5. ✅ CREAR TOKEN CON ID NUMÉRICO - ¡ESTA LÍNEA ES CLAVE!
+        access_token = create_access_token(identity=user_id)
+        
+        print(f"🎉 TOKEN CREADO CON identity (id_user): {user_id}")
+        
         return jsonify({
             "message": "Login successful", 
-            "user": user,
-            "access_token": access_token # Devolvemos el token
+            "user": {
+                "id_user": user_id,
+                "email": email
+            },
+            "access_token": access_token 
         }), 200
 
     except Exception as e:
-        print(f"ERROR DE SUPABASE: {e}")
+        print(f"❌ ERROR DE LOGIN: {e}")
         return jsonify({"message": "Internal Server Error"}), 500
