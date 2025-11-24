@@ -1,6 +1,7 @@
 import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -9,6 +10,10 @@ from routes.sign_up import sign_up
 from routes.delete_user import delete_user
 from routes.get_users import get_users
 from routes.login import login
+from routes.payment_routes import plans_bp, create_payment_bp, user_payments_bp, exchange_bp, methods_bp
+from keys import supabase
+from dotenv import load_dotenv
+import os
 from routes.logout import logout_bp
 
 
@@ -22,10 +27,9 @@ from datetime import timedelta
 
 app = Flask(__name__)
 CORS(app)
-
-app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
-
+app.config['JWT_SECRET_KEY'] = 'tu_secreto_super_seguro'
 jwt = JWTManager(app)
+
 
 SUPABASE_URL = os.getenv('SUPABASE_URL')
 SUPABASE_KEY = os.getenv('SUPABASE_KEY')
@@ -38,6 +42,12 @@ app.register_blueprint(sign_up, url_prefix='/signup')
 app.register_blueprint(delete_user, url_prefix='/user/delete')
 app.register_blueprint(get_users, url_prefix='/user')
 app.register_blueprint(login, url_prefix='/login')
+app.register_blueprint(plans_bp, url_prefix='/api/plans') 
+app.register_blueprint(create_payment_bp, url_prefix='/api/payments')
+app.register_blueprint(user_payments_bp, url_prefix='/api/my-payments')
+app.register_blueprint(exchange_bp, url_prefix='/api/exchange')
+app.register_blueprint(methods_bp, url_prefix='/api/methods')
+
 app.register_blueprint(logout_bp, url_prefix='/logout')
 
 @app.route('/api/users', methods=['GET'])
