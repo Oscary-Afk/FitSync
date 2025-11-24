@@ -4,56 +4,69 @@ from keys import supabase
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, create_access_token
 
 from werkzeug.security import check_password_hash
+from dotenv import load_dotenv
 
 login = Blueprint('login', __name__)
 
-@login.route('/login', methods=['POST'])
+load_dotenv()
+
+@login.route('/', methods=['POST'])
 def Login():
-    data = request.get_json()
-    email = data.get('email')
-    password_plaintext = data.get('password_encrypted')
-
     try:
-        # 1. Buscar usuario por email
-        response = supabase.table('User').select('id_user, email, password_encrypted').eq('email', email).execute()
-        user = response.data
+        data = request.get_json() or {}
 
+        email = data.get('email')
+        password_plaintext = data.get('password') or data.get('password_encrypted')
+
+        if not email or not password_plaintext:
+            return jsonify({"message": "Email o contraseña son necesarios"}), 400
+        
+        response = supabase.table('User').select('id_user, name, email, password_encrypted').eq('email', email).limit(1).execute()
+        # response = supabase.table('User').select('*').eq('email', email).eq('password_encrypted', password).execute()
+        # user = response.data
+
+        rows = getattr(response, 'data', None) or (response.get('data') if hasattr(response, 'get') else None) or []
+        if not rows:
+            return jsonify({"message": "Email o contraseña inválidos"}), 401
+
+        # if user:
+        #     return jsonify({"message": "Login successful", "user": user[0]}), 200
+        # else:
+        #     return jsonify({"message": "Invalid email or password"}), 401
         if not user:
-            return jsonify({"message": "Invalid email or password"}), 401
+            # Usuario no encontrado
+            return jsonify({"message": "Email invalido or contraseña invalida"}), 401
 
-        user = user[0]
+        user = rows[0]
+        #user = user[0]
         stored_hash = user.get('password_encrypted')
 
-        # 2. Verificar contraseña
         if not check_password_hash(stored_hash, password_plaintext):
-            return jsonify({"message": "Invalid email or password"}), 401
+            # La contraseña no coincide con el hash
+            return jsonify({"message": "Email invalido or contraseña invalida"}), 401
         
-        # 3. ✅ OBTENER EL ID_USER 
-        user_id = user.get('id_user')
-        
-        if user_id is None:
-            return jsonify({"message": "Internal error: User ID not found"}), 500
-            
-        # 4. ✅ CONVERTIR A INTEGER Y DEBUG
-        print(f"🔐 ANTES DE CONVERSIÓN: id_user = {user_id}, type = {type(user_id)}")
-        
-        user_id = int(user_id)  # Convertir a integer
-        print(f"✅ DESPUÉS DE CONVERSIÓN: id_user = {user_id}, type = {type(user_id)}")
-        
-        # 5. ✅ CREAR TOKEN CON ID NUMÉRICO - ¡ESTA LÍNEA ES CLAVE!
-        access_token = create_access_token(identity=user_id)
-        
-        print(f"🎉 TOKEN CREADO CON identity (id_user): {user_id}")
-        
+        # Usamos el ID del usuario como identidad para el token
+        user_identity = user.get('id_user') 
+        if user_identity is None:
+    # Como respaldo, usa el email si el ID no está disponible
+            user_identity = user.get('email')
+        if user_identity is not None:
+    # Convierte a string si es un número entero
+            user_identity_str = str(user_identity)
+        access_token = create_access_token(identity=user_identity_str)
+
+
+        # no devolver el hash al cliente
+        user.pop('password_encrypted', None)
+
+        # 4. Login exitoso: Devolver el usuario y el token
         return jsonify({
             "message": "Login successful", 
-            "user": {
-                "id_user": user_id,
-                "email": email
-            },
-            "access_token": access_token 
+            "user": user,
+            "name": user.get('name'),
+            "access_token": access_token # Devolvemos el token
         }), 200
 
     except Exception as e:
-        print(f"❌ ERROR DE LOGIN: {e}")
+        print(f"ERROR DE SUPABASE: {e}")
         return jsonify({"message": "Internal Server Error"}), 500
