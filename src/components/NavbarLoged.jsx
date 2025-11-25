@@ -94,11 +94,33 @@ export default function NavbarLoged() {
             </NavLink>
           </div>
         </div>
-        <div className="navbar-right">
-          <div className="user-box" title={userName} onClick={toggleDropdown}>
-            <FaUserCircle className="user-avatar-icon" />
-            <span className="user-name">{userName}</span>
-            <FaChevronDown className={`dropdown-caret ${isDropdownOpen ? 'open' : ''}`} />
+        {isDropdownOpen && (
+          <div className="dropdown-menu">
+            <div className="user-info">
+              <FaUserCircle className="user-avatar-icon-large" />
+              <p className="user-info-name">{userName}</p>
+              <p className="user-info-email">{userEmail}</p>
+            </div>
+            <div className="dropdown-section">
+              <Link to="/profile" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                <FaUserCircle />
+                <span>Mi Perfil</span>
+              </Link>
+              <button className="dropdown-item" onClick={handleUpdateData}>
+                <FaCog />
+                <span>Ajustes</span>
+              </button>
+            </div>
+            <div className="dropdown-section">
+              <button className="dropdown-item" onClick={handleLogout}>
+                <FaSignOutAlt />
+                <span>Cerrar sesión</span>
+              </button>
+              <Link to="/eliminate-user" className="dropdown-item danger" onClick={() => setIsDropdownOpen(false)}>
+                <FaUserMinus />
+                <span>Eliminar cuenta</span>
+              </Link>
+            </div>
           </div>
           {isDropdownOpen && (
             <div className="dropdown-menu">
@@ -134,4 +156,3 @@ export default function NavbarLoged() {
     </nav>
   );
 }
-   

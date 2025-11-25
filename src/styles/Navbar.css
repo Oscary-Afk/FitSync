@@ -15,7 +15,7 @@
 
 /* Contenedor principal del Navbar */
 .navbar-container {
-  background-color: var(--background-color);
+  background-color: var(--background-color) !important;
   display: flex;
   justify-content: space-between; /* Distribuye los elementos (links, logo, botón) */
   align-items: center;
