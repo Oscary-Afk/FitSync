@@ -50,7 +50,7 @@ app.register_blueprint(exchange_bp, url_prefix='/api/exchange')
 app.register_blueprint(methods_bp, url_prefix='/api/methods')
 
 app.register_blueprint(logout_bp, url_prefix='/logout')
-app.register_blueprint(gallery, url_prefix='/gallery')
+app.register_blueprint(gallery, url_prefix='/api/gallery')
 
 @app.route('/api/users', methods=['GET'])
 def get_all_users():

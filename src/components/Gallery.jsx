@@ -18,7 +18,7 @@ export default function Gallery() {
 
   const load = async () => {
     try {
-      const res = await fetch('/gallery/', { signal: controller.signal }) // ojo con la barra final
+      const res = await fetch('/api/gallery', { signal: controller.signal }) // ojo con la barra final
 
       if (!res.ok) {
         console.error('Gallery load failed status', res.status)
