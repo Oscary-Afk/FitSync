@@ -15,11 +15,11 @@
 
 /* Contenedor principal del Navbar */
 .navbar-container {
-  background-color: var(--background-color);
+  background-color: var(--background-color) !important;
   display: flex;
   justify-content: space-between; /* Distribuye los elementos (links, logo, botón) */
   align-items: center;
-  padding: 1rem; /* Padding superior/inferior y a los lados */
+  padding: 1rem 0; /* Padding superior/inferior y a los lados */
   font-family: Arial, sans-serif; /* Puedes ajustar la fuente */
   color: var(--text-color);
 }

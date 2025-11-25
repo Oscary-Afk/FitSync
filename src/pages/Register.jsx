@@ -1,25 +1,28 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import '../styles/Register.css'
 
 export function Register() {
-
+  const navigate = useNavigate()
   useEffect(() => {
-    fetch('/register') // ruta enpoint register, same example for others components with flask
+   /* fetch('/sign_up') // ruta enpoint register, same example for others components with flask
       .then(res => res.json())
       .then(data => console.log(data))
       .catch(err => console.error(err))
-
+*/
   }, [])
 
   const [form, setForm] = useState({ name:'', last_name:'', email:'', number:'', password:'' })
   const [msg, setMsg] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setMsg(null)
+    setLoading(true)
     try {
       const payload = {
         ...form,
@@ -33,17 +36,24 @@ export function Register() {
         body: JSON.stringify(payload)
       })
       const data = await res.json()
-      if (!res.ok) throw new Error(data.message || 'Error')
-      setMsg('Registro exitoso')
-      setForm({ name:'', last_name:'', email:'', number:'', password:'' })
+      if (!res.ok) throw new Error(data.message || 'Error al registrarse')
+
+      // opcional: guardar user/token si el backend los devuelve
+      if (data.user) localStorage.setItem('auth_user', JSON.stringify(data.user))
+      if (data.access_token) localStorage.setItem('auth_token', data.access_token)
+
+      // navegar a /home
+      navigate('/home')
     } catch (err) {
-      setMsg(err.message)
+      setMsg(err.message || 'Error inesperado')
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
     <div className="register-container">
-      <h1>Registro</h1>
+      <h1 style={{color: 'rgb(31, 29, 29)'}}>Registro</h1>
       <form onSubmit={handleSubmit} className="register">
         <input name="name" value={form.name} onChange={handleChange} placeholder="Nombre" />
         <input name="last_name" value={form.last_name} onChange={handleChange} placeholder="Apellido" />
@@ -53,7 +63,7 @@ export function Register() {
         <div>
           <a href="/login">¿Ya tienes cuenta?</a>
         </div>
-        <button type="submit">Registrarse</button>
+        <button type="submit" disabled={loading}>{loading ? 'Registrando...' : 'Registrarse'}</button>
         {msg && <p>{msg}</p>}
       </form>
     </div>
