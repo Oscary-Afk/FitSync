@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, creat
 from werkzeug.security import check_password_hash
 import traceback
 
+
 login = Blueprint('login', __name__)
 
 @login.route('/', methods=['POST'], strict_slashes=False)
@@ -19,7 +20,7 @@ def Login():
         
         response = supabase.table('User').select('id_user, name, email, password_encrypted').eq('email', email).limit(1).execute()
         # response = supabase.table('User').select('*').eq('email', email).eq('password_encrypted', password).execute()
-        # user = response.data
+        user = response.data
 
         rows = getattr(response, 'data', None) or (response.get('data') if hasattr(response, 'get') else None) or []
         if not rows:
@@ -65,5 +66,4 @@ def Login():
 
     except Exception as e:
         print(f"ERROR DE SUPABASE: {e}")
-        traceback.print_exc()
         return jsonify({"message": "Internal Server Error"}), 500
