@@ -10,9 +10,14 @@
 
 /* === NAVBAR CONTAINER === */
 .navbar-container {
+  width: 100%;
+  padding: 1rem 0;
+  background-color: var(--background-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-family: Arial, sans-serif; /* Puedes ajustar la fuente */
+  color: var(--text-color);
   padding: 1rem 2rem;
   background-color: var(--primary-bg);
   color: var(--text-primary);
@@ -148,6 +153,55 @@
 .user-info-name {
   font-size: 1.2rem;
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 10rem;
+  color: #fff;
+}
+
+.menu-profile-container{
+  padding-right: 1rem;
+  position: relative;
+}
+
+.profile-menu{
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--principal);
+}
+.profile-menu:hover, .profile-menu:focus{
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.profile-menu-content{
+  position: fixed;
+  flex-direction: column;
+  top: 5rem;
+  right: 0;
+  background: var(--reverse-principal);
+  border-radius: 10px;
+  padding: 1rem;
+  gap: 1rem;
+  width: max-content;
+}
+.profile-menu-item{
+  color: var(--principal);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.profile-menu-item:hover{
+  color: var(--color-especial);
+}
+.profile-menu-content button:hover{
+  color: #fff;
+
   color: var(--text-primary);
   margin: 0;
 }
@@ -285,6 +339,9 @@
     font-size: 1.5rem;
     cursor: pointer;
   }
+  .profile-menu:hover{
+    background: transparent !important;
+  }
 }
 
 /* === KEYFRAMES === */
@@ -297,4 +354,5 @@
     opacity: 1;
     transform: translateY(0);
   }
+
 }

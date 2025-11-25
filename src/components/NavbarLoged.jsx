@@ -4,7 +4,9 @@ import { FaUserCircle, FaCog, FaUserMinus, FaHome, FaCalendarAlt, FaDollarSign, 
 import '../styles/NavbarLoged.css';
 
 export default function NavbarLoged() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true)
+  const [isMenuOpen2, setIsMenuOpen2] = useState(false)
+  /*const [avatarUrl, setAvatarUrl] = useState(null)*/
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userName, setUserName] = useState('Invitado');
   const [userEmail, setUserEmail] = useState('user@example.com');
@@ -37,12 +39,25 @@ export default function NavbarLoged() {
     setIsDropdownOpen(false);
   };
 
-  const handleLogout = () => {
-    // Aquí iría la lógica para cerrar sesión
-    localStorage.removeItem('auth_user');
-    localStorage.removeItem('user');
-    window.location.href = '/login'; // Redirigir a la página de login
-  };
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem('auth_token')
+      await fetch('/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        }
+      })
+    } catch (e) {
+      console.error('Logout error', e)
+    } finally {
+      // limpiar estado local y redirigir (cliente)
+      localStorage.removeItem('auth_token')
+      localStorage.removeItem('auth_user')
+      window.location.href = '/login' // o '/' según tu ruta
+    }
+  }
 
   return (
     <nav className="navbar-container">
@@ -51,26 +66,33 @@ export default function NavbarLoged() {
         <span className="logo-text">FITCLUB</span>
       </div>
 
-      <div className={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
-        <NavLink to="/home" className="nav-link">
-          <FaHome />
-          <span>Home</span>
-        </NavLink>
-        <NavLink to="/classes" className="nav-link">
-          <FaCalendarAlt />
-          <span>Classes</span>
-        </NavLink>
-        <NavLink to="/pricing" className="nav-link">
-          <FaDollarSign />
-          <span>Pricing</span>
-        </NavLink>
-      </div>
-
-      <div className="navbar-right">
-        <div className="user-box" title={userName} onClick={toggleDropdown}>
-          <FaUserCircle className="user-avatar-icon" />
-          <span className="user-name">{userName}</span>
-          <FaChevronDown className={`dropdown-caret ${isDropdownOpen ? 'open' : ''}`} />
+      <div className="navbar-right menu-profile-container">
+        <button className="profile-menu" onClick={() => setIsMenuOpen2(!isMenuOpen2)}>
+          <div className="user-box" title={userName}>
+            <span className="user-name">{userName}</span>
+          </div>
+        </button>
+        <div className="profile-menu-content" style={{display: isMenuOpen2 ? 'flex' : 'none'}}>
+            <a className="profile-menu-item" href='/profile'>
+              Editar perfil
+            </a>
+            <button className="profile-menu-item" onClick={handleLogout}>
+              Cerrar sesión
+            </button>
+          <div className={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
+            <NavLink to="/home" className="nav-link">
+              <FaHome />
+              <span>Home</span>
+            </NavLink>
+            <NavLink to="/classes" className="nav-link">
+              <FaCalendarAlt />
+              <span>Classes</span>
+            </NavLink>
+            <NavLink to="/pricing" className="nav-link">
+              <FaDollarSign />
+              <span>Pricing</span>
+            </NavLink>
+          </div>
         </div>
         {isDropdownOpen && (
           <div className="dropdown-menu">
@@ -100,7 +122,36 @@ export default function NavbarLoged() {
               </Link>
             </div>
           </div>
-        )}
+          {isDropdownOpen && (
+            <div className="dropdown-menu">
+              <div className="user-info">
+                <FaUserCircle className="user-avatar-icon-large" />
+                <p className="user-info-name">{userName}</p>
+                <p className="user-info-email">{userEmail}</p>
+              </div>
+              <div className="dropdown-section">
+                <Link to="/profile" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                  <FaUserCircle />
+                  <span>Mi Perfil</span>
+                </Link>
+                <button className="dropdown-item" onClick={handleUpdateData}>
+                  <FaCog />
+                  <span>Ajustes</span>
+                </button>
+              </div>
+              <div className="dropdown-section">
+                <button className="dropdown-item" onClick={handleLogout}>
+                  <FaSignOutAlt />
+                  <span>Cerrar sesión</span>
+                </button>
+                <button className="dropdown-item danger" onClick={handleDeleteAccount}>
+                  <FaUserMinus />
+                  <span>Eliminar cuenta</span>
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </nav>
   );

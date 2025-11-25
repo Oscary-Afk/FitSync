@@ -21,11 +21,8 @@ def signnup():
 
         name = data.get("name")
         last_name = data.get("last_name")
-        email = data.get("email")
-        
-        
+        email = data.get("email")  
         password_plaintext = data.get("password_encrypted") 
-        
         number = data.get("number")
         # id_rol = 1
 
