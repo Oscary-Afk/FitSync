@@ -5,7 +5,6 @@ import '../styles/NavbarLoged.css';
 
 export default function NavbarLoged() {
   const [isMenuOpen, setIsMenuOpen] = useState(true)
-  const [isMenuOpen2, setIsMenuOpen2] = useState(false)
   /*const [avatarUrl, setAvatarUrl] = useState(null)*/
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userName, setUserName] = useState('Invitado');
@@ -66,19 +65,7 @@ export default function NavbarLoged() {
         <span className="logo-text">FITCLUB</span>
       </div>
 
-      <div className="navbar-right menu-profile-container">
-        <button className="profile-menu" onClick={() => setIsMenuOpen2(!isMenuOpen2)}>
-          <div className="user-box" title={userName}>
-            <span className="user-name">{userName}</span>
-          </div>
-        </button>
-        <div className="profile-menu-content" style={{display: isMenuOpen2 ? 'flex' : 'none'}}>
-            <a className="profile-menu-item" href='/profile'>
-              Editar perfil
-            </a>
-            <button className="profile-menu-item" onClick={handleLogout}>
-              Cerrar sesión
-            </button>
+      <div className="navbar-right menu-profile-container">        
           <div className={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
             <NavLink to="/home" className="nav-link">
               <FaHome />
@@ -93,34 +80,12 @@ export default function NavbarLoged() {
               <span>Pricing</span>
             </NavLink>
           </div>
-        </div>
-        {isDropdownOpen && (
-          <div className="dropdown-menu">
-            <div className="user-info">
-              <FaUserCircle className="user-avatar-icon-large" />
-              <p className="user-info-name">{userName}</p>
-              <p className="user-info-email">{userEmail}</p>
-            </div>
-            <div className="dropdown-section">
-              <Link to="/profile" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
-                <FaUserCircle />
-                <span>Mi Perfil</span>
-              </Link>
-              <button className="dropdown-item" onClick={handleUpdateData}>
-                <FaCog />
-                <span>Ajustes</span>
-              </button>
-            </div>
-            <div className="dropdown-section">
-              <button className="dropdown-item" onClick={handleLogout}>
-                <FaSignOutAlt />
-                <span>Cerrar sesión</span>
-              </button>
-              <Link to="/eliminate-user" className="dropdown-item danger" onClick={() => setIsDropdownOpen(false)}>
-                <FaUserMinus />
-                <span>Eliminar cuenta</span>
-              </Link>
-            </div>
+        
+        <div className="navbar-right">
+          <div className="user-box" title={userName} onClick={toggleDropdown}>
+            <FaUserCircle className="user-avatar-icon" />
+            <span className="user-name">{userName}</span>
+            <FaChevronDown className={`dropdown-caret ${isDropdownOpen ? 'open' : ''}`} />
           </div>
           {isDropdownOpen && (
             <div className="dropdown-menu">

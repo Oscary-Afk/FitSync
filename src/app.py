@@ -15,6 +15,7 @@ from keys import supabase
 from dotenv import load_dotenv
 import os
 from routes.logout import logout_bp
+from routes.gallery import gallery
 
 
 from keys import supabase
@@ -41,7 +42,7 @@ app.register_blueprint(Bp_modify, url_prefix='/api/user')
 app.register_blueprint(sign_up, url_prefix='/signup')
 app.register_blueprint(delete_user, url_prefix='/user/delete')
 app.register_blueprint(get_users, url_prefix='/user')
-app.register_blueprint(login, url_prefix='/login')
+app.register_blueprint(login, url_prefix='/Login')
 app.register_blueprint(plans_bp, url_prefix='/api/plans') 
 app.register_blueprint(create_payment_bp, url_prefix='/api/payments')
 app.register_blueprint(user_payments_bp, url_prefix='/api/my-payments')
@@ -49,6 +50,7 @@ app.register_blueprint(exchange_bp, url_prefix='/api/exchange')
 app.register_blueprint(methods_bp, url_prefix='/api/methods')
 
 app.register_blueprint(logout_bp, url_prefix='/logout')
+app.register_blueprint(gallery, url_prefix='/api/gallery')
 
 @app.route('/api/users', methods=['GET'])
 def get_all_users():
