@@ -3,7 +3,6 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from dotenv import load_dotenv
-load_dotenv()
 
 from routes.Bp_modify import Bp_modify
 from routes.sign_up import sign_up
@@ -24,7 +23,7 @@ from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from datetime import timedelta 
 
 
-
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
@@ -48,7 +47,6 @@ app.register_blueprint(create_payment_bp, url_prefix='/api/payments')
 app.register_blueprint(user_payments_bp, url_prefix='/api/my-payments')
 app.register_blueprint(exchange_bp, url_prefix='/api/exchange')
 app.register_blueprint(methods_bp, url_prefix='/api/methods')
-
 app.register_blueprint(logout_bp, url_prefix='/logout')
 app.register_blueprint(gallery, url_prefix='/api/gallery')
 
