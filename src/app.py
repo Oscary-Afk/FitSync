@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from dotenv import load_dotenv
 
+load_dotenv()
 from routes.Bp_modify import Bp_modify
 from routes.sign_up import sign_up
 from routes.delete_user import delete_user
@@ -11,19 +12,12 @@ from routes.get_users import get_users
 from routes.login import login
 from routes.payment_routes import plans_bp, create_payment_bp, user_payments_bp, exchange_bp, methods_bp
 from keys import supabase
-from dotenv import load_dotenv
-import os
 from routes.logout import logout_bp
 from routes.gallery import gallery
 
 
-from keys import supabase
-
-from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from datetime import timedelta 
 
-
-load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
