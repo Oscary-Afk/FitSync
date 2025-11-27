@@ -6,6 +6,7 @@ import { Login } from './pages/Login.jsx'
 import { IndexPage } from './pages/IndexPage.jsx'
 import { Profile } from './pages/Profile.jsx'
 import EliminateUserPage from './pages/EliminateUserPage.jsx'
+import { Settings } from './pages/Settings.jsx'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/classes" element={<IndexPage />} />
         <Route path="/pricing" element={<IndexPage />} />
         <Route path="/eliminate-user" element={<EliminateUserPage />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </BrowserRouter>
   )
