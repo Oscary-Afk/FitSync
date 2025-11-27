@@ -33,10 +33,7 @@ export default function NavbarLoged() {
     setIsDropdownOpen(false);
   };
 
-  const handleDeleteAccount = () => {
-    alert('Funcionalidad para eliminar cuenta aún no implementada.');
-    setIsDropdownOpen(false);
-  };
+ 
 
   const handleLogout = async () => {
     try {
@@ -99,20 +96,24 @@ export default function NavbarLoged() {
                   <FaUserCircle />
                   <span>Mi Perfil</span>
                 </Link>
+                 <Link to="/settings">
                 <button className="dropdown-item" onClick={handleUpdateData}>
                   <FaCog />
                   <span>Ajustes</span>
                 </button>
+                </Link>
               </div>
               <div className="dropdown-section">
                 <button className="dropdown-item" onClick={handleLogout}>
                   <FaSignOutAlt />
                   <span>Cerrar sesión</span>
                 </button>
-                <button className="dropdown-item danger" onClick={handleDeleteAccount}>
+              <Link to="/eliminate-user">
+                <button className="dropdown-item danger">
                   <FaUserMinus />
                   <span>Eliminar cuenta</span>
                 </button>
+              </Link>
               </div>
             </div>
           )}
