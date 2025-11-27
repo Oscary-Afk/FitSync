@@ -67,5 +67,22 @@ def get_all_users():
 
 
 
+@app.route('/api/trainer', methods = ['GET'])
+def get_trainer():
+    try:
+        response = supabase.table('trainer').select('*').execute()
+        trainer_data = response.data
+        
+        if trainer_data:
+            return jsonify(trainer_data), 200
+        else:
+            return jsonify({"message": "No trainers found"}), 404
+
+    except Exception as e:
+        print(f"ERROR DE SUPABASE: {e}")
+        return jsonify({"message": "Internal Server Error"}), 500
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
