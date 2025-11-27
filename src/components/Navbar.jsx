@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react';
 import '../styles/Navbar.css'
 
 export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
   return (
     <nav className="navbar-container">
       <div className='navbar-menu'>
@@ -10,7 +10,7 @@ export default function Navbar() {
           { isMenuOpen ? '≡' : 'X' }
         </button>
       </div>
-      <div className="navbar-links">
+      <div className={`navbar-links ${isMenuOpen ? '' : 'open'}`}>
         <a href="#home" className="nav-link active">HOME</a>
         <a href="#about" className="nav-link">ABOUT</a>
         <a href="#classes" className="nav-link">OUR CLASSES</a>

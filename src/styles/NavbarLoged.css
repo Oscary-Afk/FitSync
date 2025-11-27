@@ -31,8 +31,6 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  width: 50%;
-  min-width: 16rem;
 }
 
 .logo-img {
@@ -166,7 +164,10 @@
   position: relative;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+}
+
+.menu-profile-container .navbar-links, .menu-profile-container .navbar-right{
+  margin-left: auto;
 }
 
 .profile-menu{

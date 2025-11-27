@@ -10,22 +10,23 @@ def list_images():
     try:
         resp = supabase.table('galery_gym') \
             .select('id, titulo, ruta_imagen, fecha_subida') \
-            .order('fecha_subida', desc=True) \
+            .order('titulo') \
             .execute()
 
-        print("Supabase data:", resp.data, flush=True)
-        print("Supabase error:", resp.error, flush=True)
+        print("Supabase data:", getattr(resp, "data", None), flush=True)
+        print("Supabase error:", getattr(resp, "error", None), flush=True)
 
-        if resp.error:
+        if hasattr(resp, "error") and resp.error:
             return jsonify({"message": "Supabase query failed", "error": str(resp.error)}), 500
 
-        rows = resp.data or []
+        rows = getattr(resp, "data", []) or []
         return jsonify(rows), 200
 
     except Exception as e:
         print("GALLERY LIST ERROR:", e, flush=True)
         traceback.print_exc()
         return jsonify({"message": "Internal Server Error", "error": str(e)}), 500
+
 
 # POST /gallery -> create
 @gallery.route('/', methods=['POST'])
