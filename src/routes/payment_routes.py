@@ -95,6 +95,40 @@ def get_user_payments():
         return jsonify({"error": str(e)}), 500
 
 
+@user_payments_bp.route('/verify', methods=['POST'])
+@jwt_required()
+def verify_and_upgrade_role():
+    """Verifica si el usuario (pasado en body o token) tiene un pago completado
+    y en caso afirmativo actualiza su rol (`id_rol`) a 2.
+    Request JSON: { "user_id": "<id_user>" } (opcional; si no viene se usa el token)
+    """
+    try:
+        body = request.get_json() or {}
+        user_id = body.get('user_id') or get_jwt_identity()
+
+        if not user_id:
+            return jsonify({"error": "user_id required or present in JWT"}), 400
+
+        # Buscar al menos un pago completado para este usuario
+        resp = supabase.table('payments')\
+            .select('*')\
+            .eq('id_user', user_id)\
+            .eq('status', 'completed')\
+            .limit(1)\
+            .execute()
+
+        payments = getattr(resp, 'data', None) or []
+        if not payments:
+            return jsonify({"success": False, "message": "No completed payments found for user"}), 404
+
+        # Actualizar rol del usuario a 2
+        upd = supabase.table('User').update({'id_rol': 2}).eq('id_user', user_id).execute()
+        return jsonify({"success": True, "message": "User role updated to paid (id_rol=2)", "updated": getattr(upd, 'data', None)}), 200
+
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
 @historial_bp.route('/transactions', methods=['GET'])
 def transactions():
     limit = request.args.get('limit', type=int)
@@ -128,3 +162,5 @@ def send_alert():
         return jsonify({'error': 'user_id required'}), 400
     result = historial_service.send_expiration_alert(user_id)
     return jsonify(result), 200 if result.get('success') else 500
+
+
