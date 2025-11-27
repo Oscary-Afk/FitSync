@@ -96,10 +96,12 @@ export default function NavbarLoged() {
                   <FaUserCircle />
                   <span>Mi Perfil</span>
                 </Link>
+                 <Link to="/settings">
                 <button className="dropdown-item" onClick={handleUpdateData}>
                   <FaCog />
                   <span>Ajustes</span>
                 </button>
+                </Link>
               </div>
               <div className="dropdown-section">
                 <button className="dropdown-item" onClick={handleLogout}>
