@@ -14,12 +14,12 @@ export function MemberWelcome() {
           <p>Yoga - Hoy a las 6:00 PM</p>
         </div>
         <div className="summary-card">
-          <h3>Racha de Entrenamientos</h3>
-          <p>🔥 5 días seguidos</p>
+          <h3>Saludo, Entraste al gym</h3>
+          <p>¡Bienvenido a FitSync! - 10/10/2025</p>
         </div>
         <div className="summary-card">
-          <h3>Último Logro</h3>
-          <p>¡Nuevo récord en sentadillas!</p>
+          <h3>Tu entrenador</h3>
+          <p>David</p>
         </div>
       </div>
     </div>

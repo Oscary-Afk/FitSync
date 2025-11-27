@@ -18,7 +18,6 @@
   align-items: center;
   font-family: Arial, sans-serif; /* Puedes ajustar la fuente */
   color: var(--text-color);
-  padding: 1rem 2rem;
   background-color: var(--primary-bg);
   color: var(--text-primary);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
@@ -163,6 +162,12 @@
 .menu-profile-container{
   padding-right: 1rem;
   position: relative;
+  width: 100%;
+  display: flex;
+}
+
+.menu-profile-container .navbar-links, .menu-profile-container .navbar-right{
+  margin-left: auto;
 }
 
 .profile-menu{
@@ -216,6 +221,7 @@
 .dropdown-section {
   padding: 8px 0;
   border-bottom: 1px solid var(--border-color);
+  text-decoration: none;
 }
 
 .dropdown-section:last-child {
@@ -254,8 +260,6 @@
   background-color: rgba(255, 77, 77, 0.1);
   color: #ff4d4d; /* A bright red for danger */
 }
-
-
 
 .user-info {
   padding: 1rem;
@@ -339,9 +343,7 @@
     font-size: 1.5rem;
     cursor: pointer;
   }
-  .profile-menu:hover{
-    background: transparent !important;
-  }
+
 }
 
 /* === KEYFRAMES === */

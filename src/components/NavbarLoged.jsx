@@ -5,7 +5,6 @@ import '../styles/NavbarLoged.css';
 
 export default function NavbarLoged() {
   const [isMenuOpen, setIsMenuOpen] = useState(true)
-  const [isMenuOpen2, setIsMenuOpen2] = useState(false)
   /*const [avatarUrl, setAvatarUrl] = useState(null)*/
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userName, setUserName] = useState('Invitado');
@@ -34,10 +33,7 @@ export default function NavbarLoged() {
     setIsDropdownOpen(false);
   };
 
-  const handleDeleteAccount = () => {
-    alert('Funcionalidad para eliminar cuenta aún no implementada.');
-    setIsDropdownOpen(false);
-  };
+ 
 
   const handleLogout = async () => {
     try {
@@ -66,19 +62,7 @@ export default function NavbarLoged() {
         <span className="logo-text">FITCLUB</span>
       </div>
 
-      <div className="navbar-right menu-profile-container">
-        <button className="profile-menu" onClick={() => setIsMenuOpen2(!isMenuOpen2)}>
-          <div className="user-box" title={userName}>
-            <span className="user-name">{userName}</span>
-          </div>
-        </button>
-        <div className="profile-menu-content" style={{display: isMenuOpen2 ? 'flex' : 'none'}}>
-            <a className="profile-menu-item" href='/profile'>
-              Editar perfil
-            </a>
-            <button className="profile-menu-item" onClick={handleLogout}>
-              Cerrar sesión
-            </button>
+      <div className="navbar-right menu-profile-container">        
           <div className={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
             <NavLink to="/home" className="nav-link">
               <FaHome />
@@ -93,7 +77,7 @@ export default function NavbarLoged() {
               <span>Pricing</span>
             </NavLink>
           </div>
-        </div>
+        
         <div className="navbar-right">
           <div className="user-box" title={userName} onClick={toggleDropdown}>
             <FaUserCircle className="user-avatar-icon" />
@@ -112,20 +96,24 @@ export default function NavbarLoged() {
                   <FaUserCircle />
                   <span>Mi Perfil</span>
                 </Link>
+                 <Link to="/settings">
                 <button className="dropdown-item" onClick={handleUpdateData}>
                   <FaCog />
                   <span>Ajustes</span>
                 </button>
+                </Link>
               </div>
               <div className="dropdown-section">
                 <button className="dropdown-item" onClick={handleLogout}>
                   <FaSignOutAlt />
                   <span>Cerrar sesión</span>
                 </button>
-                <button className="dropdown-item danger" onClick={handleDeleteAccount}>
+              <Link to="/eliminate-user">
+                <button className="dropdown-item danger">
                   <FaUserMinus />
                   <span>Eliminar cuenta</span>
                 </button>
+              </Link>
               </div>
             </div>
           )}
@@ -134,4 +122,4 @@ export default function NavbarLoged() {
     </nav>
   );
 }
-   
+

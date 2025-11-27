@@ -53,7 +53,7 @@ export function Register() {
 
   return (
     <div className="register-container">
-      <h1>Registro</h1>
+      <h1 style={{color: 'rgb(31, 29, 29)'}}>Registro</h1>
       <form onSubmit={handleSubmit} className="register">
         <input name="name" value={form.name} onChange={handleChange} placeholder="Nombre" />
         <input name="last_name" value={form.last_name} onChange={handleChange} placeholder="Apellido" />

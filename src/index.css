@@ -21,3 +21,7 @@ body {
   background-color: var(--principal);
   color: var(--text-principal);
 }
+
+h1{
+  color: var(--text-principal);
+}

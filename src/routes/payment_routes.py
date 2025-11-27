@@ -13,7 +13,6 @@ payment_service = PaymentService()
 
 
 
-
 plans_bp = Blueprint('plans', __name__)
 create_payment_bp = Blueprint('create_payment', __name__)
 user_payments_bp = Blueprint('user_payments', __name__)

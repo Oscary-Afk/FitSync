@@ -1,21 +1,18 @@
 from flask import jsonify, request, Blueprint
 from keys import supabase
-
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity, create_access_token
-
 from werkzeug.security import check_password_hash
-from dotenv import load_dotenv
+import traceback
+
 
 login = Blueprint('login', __name__)
 
-load_dotenv()
-
-@login.route('/', methods=['POST'])
+@login.route('/', methods=['POST'], strict_slashes=False)
 def Login():
     try:
-        data = request.get_json() or {}
-
-        email = data.get('email')
+        data = request.get_json(silent=True) or {}
+        email = data.get("email")
+        #password_plaintext = data.get('password_encrypted')
         password_plaintext = data.get('password') or data.get('password_encrypted')
 
         if not email or not password_plaintext:
@@ -39,9 +36,9 @@ def Login():
 
         user = rows[0]
         #user = user[0]
-        stored_hash = user.get('password_encrypted')
+        stored_hash = user.get('password_encrypted') or ''
 
-        if not check_password_hash(stored_hash, password_plaintext):
+        if not stored_hash or not check_password_hash(stored_hash, password_plaintext):
             # La contraseña no coincide con el hash
             return jsonify({"message": "Email invalido or contraseña invalida"}), 401
         
