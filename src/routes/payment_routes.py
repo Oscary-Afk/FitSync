@@ -109,7 +109,7 @@ def verify_and_upgrade_role():
         if not user_id:
             return jsonify({"error": "user_id required or present in JWT"}), 400
 
-        # Buscar al menos un pago completado para este usuario
+      
         resp = supabase.table('payments')\
             .select('*')\
             .eq('id_user', user_id)\
