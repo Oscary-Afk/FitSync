@@ -52,6 +52,52 @@ export default function Gallery({ isAdmin = false }) {
   return () => controller.abort()
 }, [])
 
+// Crear imagen (POST)
+const addImage = async (newImage) => {
+  try {
+    const res = await fetch('/api/gallery', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newImage)
+    });
+
+    if (!res.ok) throw new Error('Error al crear imagen');
+    const created = await res.json();
+    setImages(prev => [...prev, created]); // actualiza estado
+  } catch (err) {
+    console.error('Add image failed:', err);
+  }
+};
+
+// Actualizar imagen (PUT)
+const updateImage = async (id, updatedFields) => {
+  try {
+    const res = await fetch(`/api/gallery/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedFields)
+    });
+
+    if (!res.ok) throw new Error('Error al actualizar imagen');
+    const updated = await res.json();
+    setImages(prev => prev.map(img => img.id === id ? updated : img));
+  } catch (err) {
+    console.error('Update image failed:', err);
+  }
+};
+
+// Eliminar imagen (DELETE)
+const deleteImage = async (id) => {
+  try {
+    const res = await fetch(`/api/gallery/${id}`, { method: 'DELETE' });
+    if (!res.ok) throw new Error('Error al eliminar imagen');
+    await res.json();
+    setImages(prev => prev.filter(img => img.id !== id));
+  } catch (err) {
+    console.error('Delete image failed:', err);
+  }
+};
+
 
     const toggleZoom = (src) => {
         setZoomSrc(prev => (prev === src ? null : src));
@@ -70,17 +116,23 @@ export default function Gallery({ isAdmin = false }) {
                         <>
                         <div className="gallery-images">
                           {images.map((img) => (
-                            <button className='edit-image' key={img.id}>
-                            <img
-                              key={img.id}
-                              src={img.url} // ruta relativa a public/
-                              alt={img.alt || ''}
-                              className='gallery-image'
-                              onClick={() => toggleZoom(src)}
-                            />
-                            </button>
+                            <div className='gallery-image-container'>
+                              
+                              <img
+                                key={img.id}
+                                src={img.url} // ruta relativa a public/
+                                alt={img.alt || ''}
+                                className='gallery-image'
+                                onClick={() => toggleZoom(src)}
+                              />
+                              <div className='gallery-image-actions'>
+                                <button className='edit-image' key={img.id}>Cambiar</button>
+                                <button className='delete-image' key={img.id}>Eliminar</button>
+                              </div>
+                            </div>
                           ))}
-                            <button className='add-image'><i>+</i>Añadir imagen</button>
+                            <button className='add-image' onClick={() => addImage({ titulo: "", ruta_imagen: "/galleryImages/" })}>
+                              <i>+</i>Añadir imagen</button>
                         </div>
                         <div className='gallery-submit'>
                           <button className='submit'>Confirmar</button> 

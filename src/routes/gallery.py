@@ -13,8 +13,8 @@ def list_images():
             .order('titulo') \
             .execute()
 
-        print("Supabase data:", getattr(resp, "data", None), flush=True)
-        print("Supabase error:", getattr(resp, "error", None), flush=True)
+        #print("Supabase data:", getattr(resp, "data", None), flush=True)
+        #print("Supabase error:", getattr(resp, "error", None), flush=True)
 
         if hasattr(resp, "error") and resp.error:
             return jsonify({"message": "Supabase query failed", "error": str(resp.error)}), 500

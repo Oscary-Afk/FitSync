@@ -28,7 +28,7 @@
     cursor: pointer;
 }
 
-.edit-image{
+.gallery-image-container{
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -36,16 +36,13 @@
     height: 30rem;
     padding: 0;
     border-radius: 1rem;
+    position: relative;
 }
-.edit-image:hover, .edit-image:focus{
-    background-color: transparent;
-    transform: none;
-}
-.edit-image img{
+.gallery-image-container img{
     object-fit: cover;
     height: 100%;
 }
-.edit-image img:hover{
+.gallery-image-container img:hover{
     transform: none;
     transition: none;
 }
@@ -66,6 +63,16 @@
 .add-image i{
     font-size: 3rem;
 }
+
+.gallery-image-actions{
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    bottom: 0;
+    width: 100%;
+}
+
 .gallery-submit{
     display: flex;
     justify-content: center;
