@@ -5,6 +5,7 @@ import { ClassSchedule } from '../components/ClassSchedule.jsx';
 import { MemberGoals } from '../components/MemberGoals.jsx';
 import Payment from '../components/Payment.jsx';
 import Gallery from '../components/Gallery.jsx';
+import { Trainers } from '../components/Trainers.jsx';
 
 const [isAdmin, setIsAdmin] = useState(false);
 
@@ -56,6 +57,7 @@ export function IndexPage() {
       <div className="main-content">
         <MemberWelcome />
         <ClassSchedule />
+        <Trainers />
       </div>
       <Gallery isAdmin={isAdmin} />
       <Footer />
