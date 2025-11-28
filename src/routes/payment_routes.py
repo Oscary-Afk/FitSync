@@ -7,6 +7,7 @@ from paypalhttp import HttpError
 from datetime import datetime, date
 from .payments import PaymentService
 from .historial_payments import payment_service as historial_service
+from flask import Blueprint
 
 
 payment_service = PaymentService()
@@ -19,6 +20,7 @@ user_payments_bp = Blueprint('user_payments', __name__)
 exchange_bp = Blueprint('exchange', __name__)
 methods_bp = Blueprint('methods', __name__)
 historial_bp = Blueprint('historial', __name__)
+payment_bp = Blueprint('payment', __name__)
 
 
 # --- ENDPOINTS PÚBLICOS ---
