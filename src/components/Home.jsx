@@ -15,8 +15,6 @@ export function Home() {
         </a>
       </div>
 
-    
-     
     </section>
   )
 }
