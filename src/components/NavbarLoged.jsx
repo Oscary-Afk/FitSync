@@ -11,7 +11,7 @@ export default function NavbarLoged() {
   const [userEmail, setUserEmail] = useState('user@example.com');
 
   useEffect(() => {
-    const raw = localStorage.getItem('auth_user') || localStorage.getItem('user');
+    const raw = localStorage.getItem('auth_user');
     if (raw) {
       try {
         const u = typeof raw === 'string' ? JSON.parse(raw) : raw;
