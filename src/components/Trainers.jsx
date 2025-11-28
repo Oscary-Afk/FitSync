@@ -32,7 +32,7 @@ export function Trainers() {
   if (loading) {
     return (
       <div className="class-schedule">
-        <h2>Lista de Entrenadores</h2>
+        <h2>Entrenadores</h2>
         <div className="schedule-list">
           <div className="schedule-item">
             <div className="item-name">Cargando entrenadores...</div>
