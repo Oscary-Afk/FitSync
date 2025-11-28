@@ -5,6 +5,7 @@ import { ClassSchedule } from '../components/ClassSchedule.jsx';
 import { MemberGoals } from '../components/MemberGoals.jsx';
 import Payment from '../components/Payment.jsx';
 import Gallery from '../components/Gallery.jsx';
+import { useState, useEffect } from 'react';
 
 const [isAdmin, setIsAdmin] = useState(false);
 
