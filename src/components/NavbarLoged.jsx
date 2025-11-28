@@ -59,7 +59,9 @@ export default function NavbarLoged() {
     <nav className="navbar-container">
       <div className="navbar-logo-name">
         <img src="/logo_fitsync.png" alt="logo_fitsync" className="logo-img" />
+         <NavLink to="/home" className="nav-link">
         <span className="logo-text">FITCLUB</span>
+        </NavLink>
       </div>
 
       <div className="navbar-right menu-profile-container">        
@@ -68,14 +70,14 @@ export default function NavbarLoged() {
               <FaHome />
               <span>Home</span>
             </NavLink>
-            <NavLink to="/classes" className="nav-link">
+            {/* <NavLink to="/classes" className="nav-link">
               <FaCalendarAlt />
               <span>Classes</span>
             </NavLink>
             <NavLink to="/pricing" className="nav-link">
               <FaDollarSign />
               <span>Pricing</span>
-            </NavLink>
+            </NavLink> */}
           </div>
         
         <div className="navbar-right">
@@ -97,7 +99,7 @@ export default function NavbarLoged() {
                   <span>Mi Perfil</span>
                 </Link>
                  <Link to="/settings">
-                <button className="dropdown-item" onClick={handleUpdateData}>
+                <button className="dropdown-item">
                   <FaCog />
                   <span>Ajustes</span>
                 </button>
@@ -122,3 +124,4 @@ export default function NavbarLoged() {
     </nav>
   );
 }
+

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Profile.css';
+import '../styles/Settings.css';
 import NavbarLoged from '../components/NavbarLoged';
 import Footer from '../components/Footer';
 

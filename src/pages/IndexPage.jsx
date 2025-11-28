@@ -33,9 +33,7 @@ export function IndexPage() {
       <div className="main-content">
         <MemberWelcome />
         <ClassSchedule />
-        <MemberGoals />
       </div>
-      <Payment />
       <Gallery />
       <Footer />
     </>
