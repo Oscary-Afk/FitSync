@@ -5,6 +5,7 @@ import { ClassSchedule } from '../components/ClassSchedule.jsx';
 import { MemberGoals } from '../components/MemberGoals.jsx';
 import Payment from '../components/Payment.jsx';
 import Gallery from '../components/Gallery.jsx';
+import { Trainers } from '../components/Trainers.jsx';
 
 export function IndexPage() {
 
@@ -33,6 +34,7 @@ export function IndexPage() {
       <div className="main-content">
         <MemberWelcome />
         <ClassSchedule />
+        <Trainers />
       </div>
       <Gallery />
       <Footer />

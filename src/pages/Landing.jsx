@@ -7,6 +7,7 @@ import About from '../components/About';
 import Footer from '../components/Footer.jsx';
 
 
+
 export function Landing() {
   return (
     <>
