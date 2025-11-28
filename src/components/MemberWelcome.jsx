@@ -6,11 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 export function MemberWelcome() {
 //   const userName = 'Jane Doe'; // Static name for now
-  const usuario = localStorage.getItem('auth_user') || localStorage.getItem('user');
+  const rawUser = localStorage.getItem('auth_user');
+  const usuario = rawUser ? JSON.parse(rawUser) : null;
 
-  const [fechaActual, setFechaActual] = useState(new Date());
-  const [fechaRenovacion, setFechaRenovacion] = useState(
-    new Date("2025-12-31") // fecha inventada
+  const [fechaActual, setFechaActual] = useState(new Date());  //fecha actual
+  const [fechaRenovacion, setFechaRenovacion] = useState(  //aqui la fecha de base de datos 
+    new Date("2025-12-31") // fecha inventada   
   );
   const [diasRestantes, setDiasRestantes] = useState(0);
 
@@ -35,7 +36,7 @@ export function MemberWelcome() {
     <>
     <div className="member-welcome">
       <div className="summary-card">
-        <h3>Saludos {usuario}, Entraste al gym</h3>
+        <h3>Saludos {usuario?.name}, Entraste al gym</h3>
         <p>¡Bienvenido a FitSync!</p>
       </div>
 
