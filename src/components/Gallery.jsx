@@ -156,7 +156,7 @@ const deleteImage = async (id) => {
                         <h2>Gallery</h2>
                     </div>
                     
-                      {!isAdmin ? (
+                      {isAdmin ? (
                         <>
                         <div className="gallery-images">
                           {images.map((img) => (

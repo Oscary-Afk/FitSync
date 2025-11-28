@@ -7,30 +7,40 @@ import Payment from '../components/Payment.jsx';
 import Gallery from '../components/Gallery.jsx';
 import { useState, useEffect } from 'react';
 
-const [isAdmin, setIsAdmin] = useState(false);
+export function IndexPage() {
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const rawUser = localStorage.getItem("auth_user");
-    const user = rawUser ? JSON.parse(rawUser) : null;
-    const userId = user?.id_user;
+  const rawUser = localStorage.getItem("auth_user");
+  const token = localStorage.getItem('auth_token');
+  const user = rawUser ? JSON.parse(rawUser) : null;
+  const userId = Number(user?.id_user);
 
-    if (userId) {
-      fetch(`/user/${userId}`, {
+  if (userId) {
+    fetch(`/user/${userId}`, {
+        method: 'GET',
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // 👈 si usas JWT
-        },
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
+        return res.json();
       })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.id_rol === 4) {
-            setIsAdmin(true);
-          }
-        })
-        .catch((err) => console.error("Error fetching user:", err));
-    }
-  }, []);
+      .then((data) => {
+        console.log("Respuesta del backend:", data);
+        if (data.id_rol === 4) {
+          setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
+        }
+      })
+      .catch((err) => console.error("Error fetching user:", err));
+  }
+}, []);
 
-export function IndexPage() {
+
 
   /*const [active, setActive] = useState('welcome') // 'welcome' | 'class' | 'goals'
 
