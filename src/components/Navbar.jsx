@@ -12,8 +12,7 @@ export default function Navbar() {
       </div>
       <div className={`navbar-links ${isMenuOpen ? '' : 'open'}`}>
         <a href="#home" className="nav-link active">HOME</a>
-        <a href="#about" className="nav-link">ABOUT</a>
-        <a href="#classes" className="nav-link">OUR CLASSES</a>
+       
       </div>
       
       <div className="navbar-logo-name">

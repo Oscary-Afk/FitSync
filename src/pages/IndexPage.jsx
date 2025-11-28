@@ -5,6 +5,31 @@ import { ClassSchedule } from '../components/ClassSchedule.jsx';
 import { MemberGoals } from '../components/MemberGoals.jsx';
 import Payment from '../components/Payment.jsx';
 import Gallery from '../components/Gallery.jsx';
+import { Trainers } from '../components/Trainers.jsx';
+import { Nutritionists } from '../components/Nutritionist.jsx';
+
+// const [isAdmin, setIsAdmin] = useState(false);
+
+  // useEffect(() => {
+  //   const rawUser = localStorage.getItem("auth_user");
+  //   const user = rawUser ? JSON.parse(rawUser) : null;
+  //   const userId = user?.id_user;
+
+  //   if (userId) {
+  //     fetch(`/user/${userId}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("token")}`, // 👈 si usas JWT
+  //       },
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         if (data.id_rol === 4) {
+  //           setIsAdmin(true);
+  //         }
+  //       })
+  //       .catch((err) => console.error("Error fetching user:", err));
+  //   }
+  // }, []);
 
 export function IndexPage() {
 
@@ -33,8 +58,12 @@ export function IndexPage() {
       <div className="main-content">
         <MemberWelcome />
         <ClassSchedule />
+        <Trainers />
+        <Nutritionists />
+        <Gallery />
       </div>
-      <Gallery />
+      
+      {/* <Gallery isAdmin={isAdmin} /> */}
       <Footer />
     </>
   );

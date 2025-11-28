@@ -76,5 +76,21 @@ def get_trainer():
 
 
 
+@app.route('/api/nutritionist', methods = ['GET'])
+def get_nutritionist():
+    try:
+        response = supabase.table('nutritionist').select('*').execute()
+        nutritionist_data = response.data
+        
+        if nutritionist_data:
+            return jsonify(nutritionist_data), 200
+        else:
+            return jsonify({"message": "No nutritionists found"}), 404
+
+    except Exception as e:
+        print(f"ERROR DE SUPABASE: {e}")
+        return jsonify({"message": "Internal Server Error"}), 500
+
+
 if __name__ == '__main__':
     app.run(debug=True)
