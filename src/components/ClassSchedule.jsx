@@ -19,9 +19,9 @@ export function ClassSchedule() {
           <div key={index} className="schedule-item">
             <div className="item-time">{item.time}</div>
             <div className="item-name">{item.name}</div>
-            <button className={`item-book ${item.available ? 'available' : 'full'}`}>
-              {item.available ? 'Reservar' : 'Completo'}
-            </button>
+            {/* <button className={`item-book ${item.available ? 'available' : 'full'}`}> */}
+              {/* {item.available ? 'Reservar' : 'Completo'} */}
+            {/* </button> */}
           </div>
         ))}
       </div>
