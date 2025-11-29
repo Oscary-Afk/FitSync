@@ -89,6 +89,9 @@ def get_nutritionist():
 
     except Exception as e:
         print(f"ERROR DE SUPABASE: {e}")
+        import traceback
+        print("ERROR:", e)
+        traceback.print_exc()
         return jsonify({"message": "Internal Server Error"}), 500
 
 

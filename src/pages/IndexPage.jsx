@@ -9,7 +9,7 @@ import { Trainers } from '../components/Trainers.jsx';
 import { Nutritionists } from '../components/Nutritionist.jsx';
 
 export function IndexPage() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  //const [isAdmin, setIsAdmin] = useState(false);
 
   // useEffect(() => {
   //   const rawUser = localStorage.getItem("auth_user");
