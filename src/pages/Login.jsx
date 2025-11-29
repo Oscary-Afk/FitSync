@@ -86,7 +86,7 @@ export function Login({onLogin}) {
               </button>
             </div>
             <div>
-              <a href="/sign_up">No tienes cuenta?</a>
+              <a href="/Register">No tienes cuenta?</a>
               <br />
               <a href="/forgot">Olvidaste la contraseña?</a>
             </div>
