@@ -17,12 +17,13 @@
     justify-content: center;
     gap: 1rem;
     border-radius: 1rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px var(--dark-gray);
     height: 100%;
     max-height: 25rem;
     width: 100%;
     max-width: 30rem;
     text-align: center;
+    background-color: var(--reverse-principal);
 }
 
 .login h1 {
@@ -38,6 +39,8 @@
     border-radius: 1rem;
     outline: none;
     font-size: 1.2rem;
+    color: var(--principal);
+    background-color: var(--dark-gray);
 }
 
 .login input:focus {
@@ -73,7 +76,7 @@
 }
 
 .eye-button:hover {
-    color: var(--text-principal);
+    color: var(--principal);
     transform: none;
     background: none;
     box-shadow: none;
@@ -84,4 +87,13 @@
     transform: none;
     background: none;
     box-shadow: none;
+}
+
+.redirect-container a{
+    color: var(--principal);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.redirect-container a:hover{
+    color: var(--color-especial);
 }

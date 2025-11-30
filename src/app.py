@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from dotenv import load_dotenv
+load_dotenv()
 from routes.Bp_modify import Bp_modify
 from routes.sign_up import sign_up
 from routes.delete_user import delete_user
@@ -19,7 +20,7 @@ CORS(app)
 app.config['JWT_SECRET_KEY'] = 'tu_secreto_super_seguro'
 jwt = JWTManager(app)
 
-load_dotenv()
+
 
 SUPABASE_URL = os.getenv('SUPABASE_URL')
 SUPABASE_KEY = os.getenv('SUPABASE_KEY')
@@ -89,6 +90,9 @@ def get_nutritionist():
 
     except Exception as e:
         print(f"ERROR DE SUPABASE: {e}")
+        import traceback
+        print("ERROR:", e)
+        traceback.print_exc()
         return jsonify({"message": "Internal Server Error"}), 500
 
 
