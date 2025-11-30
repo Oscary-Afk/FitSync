@@ -155,8 +155,8 @@ const deleteImage = async (id) => {
                     <div className="gallery-header">
                         <h2>Gallery</h2>
                     </div>
-                    
-                      {isAdmin ? (
+                    {/* Recolocar el usar el ! en admin mientras no esta definida la vista de roles */}
+                      {!isAdmin ? (
                         <>
                         <div className="gallery-images">
                           {images.map((img) => (
