@@ -20,7 +20,7 @@ export default function Navbar() {
         <span className="logo-text">FITCLUB</span>
       </div>
 
-      <div className="navbar-right">
+      <div className={`navbar-right-nav ${isMenuOpen ? '' : 'open'}`}>
         <a href="/login" className="nav-link">Iniciar Sesión</a>
         <a href="/register">
         <button className="join-button">RESGISTRO</button>
