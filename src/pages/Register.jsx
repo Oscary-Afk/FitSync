@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useEffect } from 'react'
+import { FaArrowLeft } from 'react-icons/fa'
 import '../styles/Register.css'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -53,8 +54,10 @@ export function Register() {
 
   return (
     <>
-    <Navbar />
     <div className="register-container">
+      <Link to="/" className="back-button">
+        <FaArrowLeft size={30} />
+      </Link>
       <h1 style={{color: 'rgb(31, 29, 29)'}}>Registro</h1>
       <form onSubmit={handleSubmit} className="register">
         <input name="name" value={form.name} onChange={handleChange} placeholder="Nombre" />
