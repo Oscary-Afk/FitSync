@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import '../styles/Register.css'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 export function Register() {
   const navigate = useNavigate()
@@ -36,11 +38,9 @@ export function Register() {
         body: JSON.stringify(payload)
       })
       const data = await res.json()
-      if (!res.ok) throw new Error(data.message || 'Error al registrarse')
+      localStorage.setItem('auth_token', data.access_token);
 
-      // opcional: guardar user/token si el backend los devuelve
-      if (data.user) localStorage.setItem('auth_user', JSON.stringify(data.user))
-      if (data.access_token) localStorage.setItem('auth_token', data.access_token)
+// ⬅️ Opcional: redirige a home o payment después del registro
 
       // navegar a /home
       navigate('/home')
@@ -52,6 +52,8 @@ export function Register() {
   }
 
   return (
+    <>
+    <Navbar />
     <div className="register-container">
       <h1 style={{color: 'rgb(31, 29, 29)'}}>Registro</h1>
       <form onSubmit={handleSubmit} className="register">
@@ -60,12 +62,14 @@ export function Register() {
         <input name="email" value={form.email} onChange={handleChange} placeholder="Email" />
         <input name="number" value={form.number} onChange={handleChange} placeholder="Telefono" type="tel" />
         <input name="password" value={form.password} onChange={handleChange} placeholder="Password" type="password" />
-        <div>
+        <div className='redirect-container'>
           <a href="/login">¿Ya tienes cuenta?</a>
         </div>
         <button type="submit" disabled={loading}>{loading ? 'Registrando...' : 'Registrarse'}</button>
         {msg && <p>{msg}</p>}
       </form>
     </div>
+    <Footer />
+    </>
   )
 }

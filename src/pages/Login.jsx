@@ -1,6 +1,8 @@
 import '../styles/Login.css';
 import { useEffect, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export function Login({onLogin}) {
 
@@ -55,8 +57,10 @@ export function Login({onLogin}) {
   }
 
     return (
+      <>
+      <Navbar />
         <div className="login-container">
-          <h1 style={{color: 'rgb(31, 29, 29)'}}>Login</h1>
+          <h1 style={{color: 'var(--text-principal)'}}>Login</h1>
           <form onSubmit={handleSubmit} className="login">
             <input
               type="email"
@@ -85,8 +89,8 @@ export function Login({onLogin}) {
                 {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
               </button>
             </div>
-            <div>
-              <a href="/sign_up">No tienes cuenta?</a>
+            <div className='redirect-container'>
+              <a href="/Register">No tienes cuenta?</a>
               <br />
               <a href="/forgot">Olvidaste la contraseña?</a>
             </div>
@@ -96,5 +100,7 @@ export function Login({onLogin}) {
             {error && <p className="form-error">{error}</p>}
           </form>
         </div>
+      <Footer />
+      </>
     );
 }
