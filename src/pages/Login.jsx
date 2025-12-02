@@ -1,6 +1,7 @@
 import '../styles/Login.css';
 import { useEffect, useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaArrowLeft } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -58,8 +59,11 @@ export function Login({onLogin}) {
 
     return (
       <>
-      <Navbar />
+      
         <div className="login-container">
+          <Link to="/" className="back-button">
+            <FaArrowLeft size={30} />
+          </Link>
           <h1 style={{color: 'var(--text-principal)'}}>Login</h1>
           <form onSubmit={handleSubmit} className="login">
             <input

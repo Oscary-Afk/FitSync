@@ -13,11 +13,13 @@ from routes.payment_routes import plans_bp, create_payment_bp, user_payments_bp,
 from keys import supabase
 from routes.logout import logout_bp
 from routes.gallery import gallery
+from routes.verify_token import verify_token
 from datetime import timedelta 
 
 app = Flask(__name__)
 CORS(app)
 app.config['JWT_SECRET_KEY'] = 'tu_secreto_super_seguro'
+app.config['JWT_TOKEN_LOCATION'] = ['headers', 'json']
 jwt = JWTManager(app)
 
 
@@ -27,7 +29,7 @@ SUPABASE_KEY = os.getenv('SUPABASE_KEY')
 if not SUPABASE_URL or not SUPABASE_KEY:
     raise RuntimeError('Set url and key environment variables')
 
-
+app.register_blueprint(verify_token, url_prefix='/api/token')
 app.register_blueprint(Bp_modify, url_prefix='/api/user')
 app.register_blueprint(sign_up, url_prefix='/signup')
 app.register_blueprint(delete_user, url_prefix='/user/delete')
@@ -94,6 +96,7 @@ def get_nutritionist():
         print("ERROR:", e)
         traceback.print_exc()
         return jsonify({"message": "Internal Server Error"}), 500
+
 
 
 if __name__ == '__main__':
